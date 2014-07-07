@@ -13,5 +13,18 @@
 
 Route::get('/', function()
 {
-	return View::make('hello');
+	return View::make('index');
 });
+Route::get('/demo', function()
+{
+    return View::make('demo');
+});
+Route::get('/pricing', function()
+{
+    return View::make('pricing');
+});
+
+// Users
+Route::Controller('user','UserController');
+//Items
+Route::Controller('items','ItemsController');
