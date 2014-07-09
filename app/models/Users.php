@@ -27,7 +27,13 @@ class Users extends Eloquent{
         $sql="insert into users (name,email,password,created_at) values (?,?,?,now())";
         DB::insert($sql,array($name,$email,$pwd));
 
-        return $pdo = DB::connection()->getPdo()->lastInsertId();
+        $user_id=DB::connection()->getPdo()->lastInsertId();
+
+        // init default value for user setting
+        UserSettings::CreateDefaultObject($user_id);
+
+        return $user_id;
+
     }
     public static function login($email,$pass)
     {
@@ -41,5 +47,4 @@ class Users extends Eloquent{
             return null;
         }
     }
-
-} 
+}
