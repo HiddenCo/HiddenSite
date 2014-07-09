@@ -32,19 +32,20 @@
         <div class="col-md-12">
             <div class="well">
 
-                <form role="form" action="<?php echo URL::to('/')?>/user">
+                <form role="form" action="<?php echo URL::to('/')?>/user/login" method="post">
 
 
                     <div class="form-group">
                         <label for="email">Your Email</label>
-                        <input class="form-control" id="email" placeholder="" type="text">
+                        <input class="form-control" id="email" name="email" placeholder="" type="text">
                     </div>
                     <div class="form-group">
                         <label for="passinput">Password</label>
-                        <input class="form-control" id="passinput" placeholder="" type="text">
+                        <input class="form-control" id="password" name="password" placeholder="" type="password">
                     </div>
-
-
+                    <div class="form-group">
+                        <?php if(isset($error)) {?><label style="color: red" for="passinput"><?php echo $error;?></label><?php }?>
+                    </div>
                     <button type="submit" class="btn btn-success btn-block">Login</button>
                 </form>
 
