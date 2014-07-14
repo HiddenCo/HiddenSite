@@ -24,6 +24,11 @@ Route::get('/pricing', function()
     return View::make('pricing');
 });
 
+Route::get('/test',function() {
+    $awzapi=AmazonApi::getInstance();
+    $awzapi->getProductInformation('B00JQHOKSQ');
+});
+
 // Users
 Route::Controller('user','UserController');
 //Items
