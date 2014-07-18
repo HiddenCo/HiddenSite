@@ -17,13 +17,20 @@ class UserController extends BaseController{
     {
         return View::make('login');
     }
+    //make user login view
+    public function getLogout()
+    {
+        Session::flush();
+        return View::make('login');
+    }
     // make members views
     public function getIndex()
     {
         if(!Session::has('user_id')) {
             return Redirect::to('/user/login');
         }
-        return View::make('members.members');
+        $products=Products::getAll(Session::get('user_id'));
+        return View::make('members.members')->with('products',$products);
     }
     public function getSetting()
     {

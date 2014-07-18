@@ -53,80 +53,55 @@
     <div class="row">
         <div class="col-md-12">
             <div class="well">
+                <form role="form" action="<?php echo URL::to('/')?>/items/save-delete" method="post">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Select Items</th>
+                            <th>Item Name</th>
+                            <th>Product Source URL</th>
+                            <th>Price</th>
+                            <th>Status</th>
+                            <th>Edit Item</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <?php foreach($products as $product) {?>
+                            <tr>
+                                <td>
+                                    <div class="checkbox">
+                                        <input type="checkbox" name="check_list[<?php echo $product->id;?>]" value="">
+                                    </div>
+                                </td>
+                                <td><?php echo $product->title;?></td>
+                                <td><a target="_blank" href="<?php echo $product->source_url;?>">Product Link</a></td>
+                                <td><?php echo '$'.$product->sell_price;?></td>
+                                <td>
+                                    <?php if($product->ebay_added) {?>
+                                        <span style="color:green;">LIVE</span>
+                                    <?php } else {?>
+                                        <span style="color:red;">Archived</span>
+                                    <?php }?>
+                                </td>
+                                <td>
+                                    <button type="button" onclick="location.href='<?php echo URL::to("/items?item_id=".$product->id);?>'" class="btn btn-primary btn-xs">Edit Item</button>
+                                </td>
+                            </tr>
+                        <?php }?>
 
-                <table class="table">
-                    <thead>
-                    <tr>
-                        <th>Select Items</th>
-                        <th>Item Name</th>
-                        <th>Product Source URL</th>
-                        <th>Buy Price | Sell Price | Profit</th>
-                        <th>Status</th>
-                        <th>Edit Item</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td>
-                            <div class="checkbox">
-                                <input type="checkbox" value="">
-                            </div>
-                        </td>
-                        <td>Big Fancy Car</td>
-                        <td>http://BigFancyCar.com</td>
-                        <td>$100,000 | $200,000 | $100,000</td>
-                        <td>
-                            <span style="color:green">LIVE</span>
-                        </td>
-                        <td>
-                            <button type="button" class="btn btn-primary btn-xs">Edit Item</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="checkbox">
-                                <input type="checkbox" value="">
-                            </div>
-                        </td>
-                        <td>Big Fancy Car</td>
-                        <td>http://BigFancyCar.com</td>
-                        <td>$100,000 | $200,000 | $100,000</td>
-                        <td>
-                            <span style="color:green">LIVE</span>
-                        </td>
-                        <td>
-                            <button type="button" class="btn btn-primary btn-xs">Edit Item</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="checkbox">
-                                <input type="checkbox" value="">
-                            </div>
-                        </td>
-                        <td>Big Fancy Car</td>
-                        <td>http://BigFancyCar.com</td>
-                        <td>$100,000 | $200,000 | $100,000</td>
-                        <td>
-                            <span style="color:green">LIVE</span>
-                        </td>
-                        <td>
-                            <button type="button" class="btn btn-primary btn-xs">Edit Item</button>
-                        </td>
-                    </tr>
+                        </tbody>
 
-                    </tbody>
+                    </table>
+                    <div class="btn-group btn-group-justified">
+                        <div class="btn-group">
+                            <button type="submit" name="save" id="save" class="btn btn-success">List on eBay</button>
+                        </div>
+                        <div class="btn-group">
+                            <button type="submit" name="delete" id="delete" class="btn btn-danger">Delete from Account</button>
+                        </div>
 
-                </table>
-                <div class="btn-group btn-group-justified">
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-success">List on eBay</button>
                     </div>
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-danger">Delete from Account</button>
-                    </div>
-
-                </div>
+                </form>
             </div>
 
         </div>

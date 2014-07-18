@@ -18,20 +18,64 @@ class Products extends Eloquent{
         }
     }
 
+    public static function isArchivedProduct($product_id)
+    {
+        $sql="select ebay_added from products where amazon_id=?";
+        $result=DB::select($sql,array($product_id));
+
+        if($result!=null && count($result)>0) {
+            return $result[0]->ebay_added==0;
+        } else {
+            return false;
+        }
+    }
+
     public static function AddNewProduct($input)
     {
         if(self::isExist($input['product_id']))
         {
-            self::DeleteProduct($input['product_id']);
+            return self::updateObject($input);
         }
-        $sql="insert into products (created_at,user_id,amazon_id,title,features,description,availability,image_urls,sell_price,ebay_category)
-                values (now(),?,?,?,?,?,?,?,?,?)";
+        $sql="insert into products (created_at,user_id,amazon_id,title,features,description,availability,image_urls,sell_price,ebay_category,source_url)
+                values (now(),?,?,?,?,?,?,?,?,?,?)";
         DB::insert($sql,array(Session::get('user_id'),$input['product_id'],$input['title'],
             $input['feature'],$input['description'],$input['availability'],$input['image'],
-            $input['price'],$input['category']));
+            $input['price'],$input['category'],$input['source_url']));
     }
     public static function DeleteProduct($product_id)
     {
-        DB::delete('delete from products where amazon_id=?',array($product_id));
+        DB::delete('delete from products where id=?',array($product_id));
+    }
+
+    public static function getAll($user_id)
+    {
+        $sql="select * from products where user_id=?";
+        $result=DB::select($sql,array($user_id));
+
+        return $result;
+    }
+    public static function getObject($item_id)
+    {
+        $sql="select * from products where id=?";
+        $result=DB::select($sql,array($item_id));
+
+        if($result!=null && count($result)>0) {
+            return $result[0];
+        }
+    }
+
+    public static function updateObject($input)
+    {
+        $sql="update products set title=?,features=?,description=?,
+                availability=?,image_urls=?,sell_price=?,ebay_category=? where amazon_id=?";
+
+        DB::update($sql,array($input['title'],
+            $input['feature'],$input['description'],$input['availability'],$input['image'],
+            $input['price'],$input['category'],$input['product_id']));
+
+    }
+    public static function setEbayAdded($amazon_id) {
+        $sql="update products set ebay_added=1 where amazon_id=?";
+        DB::update($sql,array($amazon_id));
     }
 } 

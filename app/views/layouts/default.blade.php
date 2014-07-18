@@ -46,8 +46,17 @@
                 <li>
                     <a href="<?php echo URL::to('/')?>/user/register">Register</a>
                 </li>
+                <?php if(Session::has('user_id')) {?>
+                    <li>
+                        <a href="<?php echo URL::to('/')?>/user">Members Area</a>
+                    </li>
+                <?php } ?>
                 <li>
-                    <a href="<?php echo URL::to('/')?>/user/login">Login</a>
+                    <?php if(!Session::has('user_id')) {?>
+                        <a href="<?php echo URL::to('/')?>/user/login">Login</a>
+                    <?php } else {?>
+                        <a style="color: red;" href="<?php echo URL::to('/')?>/user/logout">Logout</a>
+                    <?php }?>
                 </li>
             </ul>
         </div>

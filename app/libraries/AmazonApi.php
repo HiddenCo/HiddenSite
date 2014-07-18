@@ -63,8 +63,16 @@ class AmazonApi {
             $feature="Not Found";
         }
 
+        if(array_key_exists('DetailPageURL',$response['Items']['Item'])) {
+            $source_url=$response['Items']['Item']['DetailPageURL'];
+        } else {
+            $source_url='';
+        }
+
         $result=array('product_id'=>$awz_product_id,'title'=>$title,'availability'=>$availability,
-                    'price'=>$price,'image'=>$image,'feature'=>$feature,'description'=>$description);
+                    'price'=>$price,'image'=>$image,'feature'=>$feature,
+                    'description'=>$description,'source_url'=>$source_url);
+
 
         return $result;
     }
