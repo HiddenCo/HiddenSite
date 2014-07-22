@@ -11,7 +11,7 @@ Replace keys and tokens with your information.
 DEFINE("SITEID",0);
 
 // production vs. sandbox flag - true=production
-DEFINE("FLAG_PRODUCTION",false);
+DEFINE("FLAG_PRODUCTION",true);
 
 // eBay Trading API version to use
 DEFINE("API_COMPATIBILITY_LEVEL",779);
@@ -26,12 +26,13 @@ if (FLAG_PRODUCTION) {
     DEFINE("API_URL",'https://api.ebay.com/ws/api.dll');
 
     // Set production credentials (from developer.ebay.com)
-    DEFINE("API_DEV_NAME",'<YOUR_PRODUCTION_DEV_ID>');
-    DEFINE("API_APP_NAME",'<YOUR_PRODUCTION_APP_ID>');
-    DEFINE("API_CERT_NAME",'<YOUR_PRODUCTION_CERT_ID>');
+    DEFINE("API_DEV_NAME",'b41e8468-cd5d-4db4-9fd0-8976de3efbf6');
+    DEFINE("API_APP_NAME",'JumpToSu-9971-40dc-b0d7-95b7296d1825');
+    DEFINE("API_CERT_NAME",'df3614d6-dc4c-4b7f-826d-47913f73444b');
 
     // Set the auth token for the user profile used
-    DEFINE("AUTH_TOKEN",'YOUR_PRODUCTION_TOKEN');
+
+    DEFINE("RUNAME",'JumpToSuccess-JumpToSu-9971-4-davvmzpos');
 
 } else {
 
@@ -40,11 +41,12 @@ if (FLAG_PRODUCTION) {
     DEFINE("API_URL",'https://api.sandbox.ebay.com/ws/api.dll');
 
     // Set sandbox credentials (from developer.ebay.com)
-    DEFINE("API_DEV_NAME",'7b0be4d5-eee3-41e1-b241-f2c7d76ba3b7');
-    DEFINE("API_APP_NAME",'Cinnamon-c45e-4ca7-a70e-6d2aafeba080');
-    DEFINE("API_CERT_NAME",'98a3886d-da66-4a84-961a-ee2ec08f4bd5');
+    DEFINE("API_DEV_NAME",'b41e8468-cd5d-4db4-9fd0-8976de3efbf6');
+    DEFINE("API_APP_NAME",'JumpToSu-9971-40dc-b0d7-95b7296d1825');
+    DEFINE("API_CERT_NAME",'df3614d6-dc4c-4b7f-826d-47913f73444b');
 
     // Set the auth token for the user profile used
-    DEFINE("AUTH_TOKEN",'');
+
+    DEFINE("RUNAME",'JumpToSuccess-JumpToSu-9971-4-davvmzpos');
 }
 ?>

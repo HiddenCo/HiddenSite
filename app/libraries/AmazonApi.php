@@ -37,13 +37,30 @@ class AmazonApi {
         $this->awz_ecs->returnType(AmazonECS::RETURN_TYPE_ARRAY);
         $response=$this->awz_ecs->responseGroup('Large,EditorialReview')->lookup($awz_product_id);
 
+        if(!array_key_exists('Items',$response)) {
+            throw new Exception('The response is wrong format');
+        }
+        if(!array_key_exists('Item',$response['Items'])) {
+            throw new Exception('The response is wrong format');
+        }
 
+        if(array_key_exists('ItemAttributes',$response['Items']['Item'])) {
+            $title=$response['Items']['Item']['ItemAttributes']['Title'];
+        } else {
+            $title="Not Found";
+        }
 
-        $title=$response['Items']['Item']['ItemAttributes']['Title'];
+        if(array_key_exists('Offers',$response['Items']['Item'])) {
+            $availability=$response['Items']['Item']['Offers']['Offer']['OfferListing']['Availability'];
+        } else {
+            $availability="Not Found";
+        }
 
-        $availability=$response['Items']['Item']['Offers']['Offer']['OfferListing']['Availability'];
-
-        $price=$response['Items']['Item']['Offers']['Offer']['OfferListing']['Price']['Amount'];
+        if(array_key_exists('Offers',$response['Items']['Item'])) {
+            $price=$response['Items']['Item']['Offers']['Offer']['OfferListing']['Price']['Amount'];
+        } else {
+            $price=0;
+        }
 
         if(array_key_exists('EditorialReviews',$response['Items']['Item'])) {
             $description=$response['Items']['Item']['EditorialReviews']['EditorialReview']['Content'];

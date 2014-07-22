@@ -250,4 +250,28 @@ class UserController extends BaseController{
             return ErrorResponse::Report($e);
         }
     }
+    public function getEbayToken()
+    {
+        try {
+            $session_id=Input::get('session_id');
+            $user_token=EbayAPI::GetUserToken($session_id);
+
+            Users::setEbayToken($user_token);
+
+            return Redirect::to('/user/setting');
+        } catch(Exception $e) {
+            return ErrorResponse::Report($e);
+        }
+
+    }
+    public function getEbayLogout()
+    {
+        try {
+            Users::deleteEbayToken();
+            return Redirect::to('/user/setting');
+        } catch(Exception $e) {
+            return ErrorResponse::Report($e);
+        }
+
+    }
 } 

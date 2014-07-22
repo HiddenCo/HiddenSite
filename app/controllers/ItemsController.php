@@ -91,8 +91,22 @@ class ItemsController extends BaseController{
     private function addtoEbay($product_info)
     {
         if(Products::isArchivedProduct($product_info['product_id'])) {
+
+            // resize image first
+            $img_url=$product_info['image'];
+            $img_url_encode=urlencode($img_url);
+            $link="http://i.embed.ly/1/image/resize?url=".$img_url_encode."&key=14ac1d6a581c48e0af0c61ba5ed9fd70&height=2000&grow=true";
+
+            $user_setting=UserSettings::getUserSetting();
+
+            // upload to Imgur
+
+            $image_ur_link=ImgurAPI::uploadImage($link,$user_setting->imgur_client_id);
+
+            // upload to ebay
+
             EbayAPI::AddItem($product_info['title'],$product_info['category'],
-                $product_info['price'],$product_info['image'],$product_info['description']);
+                $product_info['price'],$image_ur_link,$product_info['description']);
 
             Products::setEbayAdded($product_info['product_id']);
         }

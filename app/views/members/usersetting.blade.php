@@ -28,6 +28,13 @@
         </div>
     </div>
 </div>
+<?php
+    if(!Users::isEbayLogged()) {
+        $session_id=EbayAPI::getSessionId();
+        $login_url=EbayAPI::getLoginURL($session_id);
+    }
+
+?>
 <div class="container">
     <div class="well">
 
@@ -37,7 +44,19 @@
                 <label for="paypalinput">PayPal Email</label>
                 <input class="form-control" id="paypalinput" name="paypal_email" placeholder="Enter Your PayPal Email Address" type="text"
                        value="<?php if(isset($data)) echo $data->paypal_email;?>">
-                <br><a class="btn btn-danger">Log-in to eBay (required)</a> Logged in? Yes/No
+
+                <?php if(Users::isEbayLogged()) {?>
+                    <br><a class="btn btn-danger" href="<?php echo URL::to('/')?>/user/ebay-logout">Log-out</a>
+                <?php } else {?>
+                    <br><a class="btn btn-danger" target="_blank" href="<?php echo $login_url;?>">Log-in to eBay (required)</a>
+                    <br>
+                    <br> Once sign in is complete close the extra window and click get token.
+                    <br>
+                    <br>
+                    <a class="btn btn-primary" href="<?php echo URL::to('/')?>/user/ebay-token?session_id=<?php echo $session_id;?>">get Token</a>
+                    <br>
+                    <br><textarea class="form-control" rows="3"><?php if(isset($data)) echo $data->token;?></textarea>
+                <?php }?>
             </div>
             <div class="form-group">
                 <label for="zipinput">ZIP Code</label>

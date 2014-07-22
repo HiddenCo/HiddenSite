@@ -47,4 +47,25 @@ class Users extends Eloquent{
             return null;
         }
     }
+    public static function isEbayLogged()
+    {
+        $user_id=Session::get('user_id');
+        $sql="select token from user_settings where user_id=?";
+        $result=DB::select($sql,array($user_id));
+        if(count($result)>0) {
+            return isset($result[0]->token);
+        } else {
+            return false;
+        }
+    }
+    public static function deleteEbayToken()
+    {
+        $sql="update user_settings set token=null where  user_id=?";
+        DB::update($sql,array(Session::get('user_id')));
+    }
+    public static function setEbayToken($token)
+    {
+        $sql="update user_settings set token=? where  user_id=?";
+        DB::update($sql,array($token,Session::get('user_id')));
+    }
 }
