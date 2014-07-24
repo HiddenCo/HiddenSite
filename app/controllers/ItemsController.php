@@ -127,8 +127,10 @@ class ItemsController extends BaseController{
 
                 $product=Products::getObject($item);
 
+                $user_setting=UserSettings::getUserSetting();
+
                 EbayAPI::AddItem($product->title,$product->ebay_category,$product->sell_price,
-                    $product->image_urls,$product->description);
+                    $product->image_urls,$product->description,$user_setting->zip_code);
 
                 Products::setEbayAdded($product->amazon_id);
             }
