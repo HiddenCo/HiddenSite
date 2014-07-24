@@ -70,8 +70,6 @@ class AmazonApi {
         if(array_key_exists('Offers',$response['Items']['Item'])) {
             if(array_key_exists('Offer',$response['Items']['Item']['Offers'])) {
 
-                var_dump($response['Items']['Item']['Offers']['Offer']);
-
                 $price=$response['Items']['Item']['Offers']['Offer']['OfferListing']['Price']['FormattedPrice'];
                 $price=floatval(substr($price,1));
 
@@ -84,11 +82,22 @@ class AmazonApi {
 
 
         if(array_key_exists('EditorialReviews',$response['Items']['Item'])) {
-            if(array_key_exists('Content',$response['Items']['Item']['EditorialReviews']['EditorialReview'])) {
-                $description=$response['Items']['Item']['EditorialReviews']['EditorialReview']['Content'];
+            if(is_array($response['Items']['Item']['EditorialReviews']['EditorialReview'])) {
+                if(array_key_exists('Content',$response['Items']['Item']['EditorialReviews']['EditorialReview'][0])) {
+
+                    $description=$response['Items']['Item']['EditorialReviews']['EditorialReview'][0]['Content'];
+                } else {
+                    $description="Not Found";
+                }
             } else {
-                $description="Not Found";
+                if(array_key_exists('Content',$response['Items']['Item']['EditorialReviews']['EditorialReview'])) {
+
+                    $description=$response['Items']['Item']['EditorialReviews']['EditorialReview']['Content'];
+                } else {
+                    $description="Not Found";
+                }
             }
+
 
         } else {
             $description="Not Found";
