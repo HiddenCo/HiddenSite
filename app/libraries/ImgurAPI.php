@@ -18,6 +18,7 @@ class ImgurAPI {
         curl_setopt($curl, CURLOPT_POST, 1);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($curl, CURLOPT_POSTFIELDS, $pvars);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
         $out = curl_exec($curl);
         curl_close ($curl);
         $pms = json_decode($out,true);
