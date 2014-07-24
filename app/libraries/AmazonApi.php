@@ -84,7 +84,12 @@ class AmazonApi {
 
 
         if(array_key_exists('EditorialReviews',$response['Items']['Item'])) {
-            $description=$response['Items']['Item']['EditorialReviews']['EditorialReview']['Content'];
+            if(array_key_exists('Content',$response['Items']['Item']['EditorialReviews']['EditorialReview'])) {
+                $description=$response['Items']['Item']['EditorialReviews']['EditorialReview']['Content'];
+            } else {
+                $description="Not Found";
+            }
+
         } else {
             $description="Not Found";
         }
