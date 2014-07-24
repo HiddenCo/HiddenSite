@@ -95,6 +95,8 @@ class ItemsController extends BaseController{
             // resize image first
             $img_url=$product_info['image'];
 
+            $user_setting=UserSettings::getUserSetting();
+
             // upload to ebay
 
             EbayAPI::AddItem($product_info['title'],$product_info['category'],
