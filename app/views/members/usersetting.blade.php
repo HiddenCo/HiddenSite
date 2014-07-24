@@ -63,29 +63,12 @@
                 <input class="form-control" id="zipinput" name="zip_code" placeholder="Enter the ZIP code you'll be using" type="text"
                        value="<?php if(isset($data)) echo $data->zip_code;?>">
             </div>
-
-            <h3 class="text-left text-danger">Extremely Important:</h3>
-
-
             <div class="form-group">
-                <label for="awsinput">Amazon AWS Access Key ID</label>
-                <input class="form-control" id="awsinput" name="access_key" placeholder="Enter your Amazon AWS access key ID" type="text"
-                       value="<?php if(isset($data)) echo $data->aws_access_key;?>">
-            </div>
-            <div class="form-group">
-                <label for="secretinput">Amazon AWS Secret Key ID</label>
-                <input class="form-control" id="secretinput" name="secret" placeholder="Enter your Amazon AWS secret access key ID" type="text"
-                       value="<?php if(isset($data)) echo $data->aws_access_secret;?>">
-            </div>
-            <div class="form-group">
-                <label for="atinput">Amazon Associate Tag</label>
-                <input class="form-control" id="atinput" name="associate_tag" placeholder="Enter your Amazon associate tag" type="text"
-                       value="<?php if(isset($data)) echo $data->aws_associate_tag;?>">
-            </div>
-            <div class="form-group">
-                <label for="imgurinput">Imgur Client ID</label>
-                <input class="form-control" id="imgurinput" name="imgur_id" placeholder="Enter Imgur Client ID" type="text"
-                       value="<?php if(isset($data)) echo $data->imgur_client_id;?>">
+                <label for="zipinput">Amazon Site Location</label>
+                <select class="form-control" name="lang" id="lang">
+                    <option value="com" <?php if($data->lang=='com') echo 'selected'?>>.com (United States)</option>
+                    <option value="co.uk" <?php if($data->lang=='co.uk') echo 'selected'?>>.co.uk (United Kingdom)</option>
+                </select>
             </div>
             <div class="form-group">
                 <?php if(isset($error)) {?><label style="color: red" for="passinput"><?php echo $error;?></label><?php }?>

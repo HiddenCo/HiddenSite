@@ -101,7 +101,7 @@ class ItemsController extends BaseController{
 
             // upload to Imgur
 
-            $image_ur_link=ImgurAPI::uploadImage($link,$user_setting->imgur_client_id);
+            $image_ur_link=ImgurAPI::uploadImage($link,Config::get('aws.imgur_client_id'));
 
             // upload to ebay
 

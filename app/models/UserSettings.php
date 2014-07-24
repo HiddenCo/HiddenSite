@@ -18,10 +18,8 @@ class UserSettings extends Eloquent {
     {
         $user_id=Session::get('user_id');
         // update
-        $sql="update user_settings set paypal_email=?, zip_code=?, aws_access_key=?, aws_access_secret=?,
-                aws_associate_tag=?,imgur_client_id=? where user_id=?";
-        DB::update($sql,array($input['paypal_email'],$input['zip_code'],$input['access_key'],
-                    $input['secret'],$input['associate_tag'],$input['imgur_id'],$user_id));
+        $sql="update user_settings set paypal_email=?, zip_code=?,lang=? where user_id=?";
+        DB::update($sql,array($input['paypal_email'],$input['zip_code'],$input['lang'],$user_id));
     }
     public static function getUserSetting()
     {

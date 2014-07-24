@@ -40,11 +40,13 @@
             </div>
             <div class="form-group">
                 <label for="featuresinput">Features</label>
-                <input class="form-control" id="features_input" name="features_input" placeholder="Enter Product Features (one per line)" type="text" value="<?php if(isset($product))  {echo $product->features;}?>">
+                <textarea class="form-control" id="features_input" name="features_input" placeholder="Enter Product Features (one per line)" contenteditable="true" rows="4"><?php if(isset($product))  {echo $product->features;}?></textarea>
+                <!--input class="form-control" id="features_input" name="features_input" placeholder="Enter Product Features (one per line)" type="text" value="<!--?php if(isset($product))  {echo $product->features;}?>"-->
             </div>
             <div class="form-group">
                 <label for="descinput">Description</label>
-                <input class="form-control" id="desc_input" name="desc_input" placeholder="Enter Product Description" type="text" value="<?php if(isset($product))  {echo $product->description;}?>">
+                <textarea class="form-control" id="desc_input" name="desc_input" placeholder="Enter Product Description" contenteditable="true" rows="4"><?php if(isset($product))  {echo $product->description;}?></textarea>
+                <!--input class="form-control" id="desc_input" name="desc_input" placeholder="Enter Product Description" type="text" value="<!--?php if(isset($product))  {echo "\'$product->description\'";}?>"-->
             </div>
             <div class="form-group">
                 <label for="availinput">Availability</label>

@@ -17,9 +17,9 @@ class AmazonApi {
         $result=DB::select($sql,array(Session::get('user_id')));
 
         if($result!=null && count($result)>0) {
-            $amazon_id=$result[0]->aws_access_key;
-            $amazon_secret=$result[0]->aws_access_secret;
-            $amazon_associate=$result[0]->aws_associate_tag;
+            $amazon_id=Config::get('aws.aws_key');
+            $amazon_secret=Config::get('aws.aws_secret');
+            $amazon_associate=Config::get('aws.aws_associate_tag');
             $lang=$result[0]->lang;
 
             $this->awz_ecs=new AmazonECS($amazon_id,$amazon_secret,$lang,$amazon_associate);
@@ -37,9 +37,13 @@ class AmazonApi {
         $this->awz_ecs->returnType(AmazonECS::RETURN_TYPE_ARRAY);
         $response=$this->awz_ecs->responseGroup('Large,EditorialReview')->lookup($awz_product_id);
 
+
+
+
         if(!array_key_exists('Items',$response)) {
             throw new Exception('The response is wrong format');
         }
+
         if(!array_key_exists('Item',$response['Items'])) {
             throw new Exception('The response is wrong format');
         }
@@ -50,17 +54,29 @@ class AmazonApi {
             $title="Not Found";
         }
 
+
         if(array_key_exists('Offers',$response['Items']['Item'])) {
-            $availability=$response['Items']['Item']['Offers']['Offer']['OfferListing']['Availability'];
+            if(array_key_exists('Offer',$response['Items']['Item']['Offers'])) {
+                $availability=$response['Items']['Item']['Offers']['Offer']['OfferListing']['Availability'];
+            }else {
+                $availability="Not Found";
+            }
+
         } else {
             $availability="Not Found";
         }
 
+
         if(array_key_exists('Offers',$response['Items']['Item'])) {
-            $price=$response['Items']['Item']['Offers']['Offer']['OfferListing']['Price']['Amount'];
+            if(array_key_exists('Offer',$response['Items']['Item']['Offers'])) {
+                $price=$response['Items']['Item']['Offers']['Offer']['OfferListing']['Price']['Amount'];
+            }else {
+                $price=0;
+            }
         } else {
             $price=0;
         }
+
 
         if(array_key_exists('EditorialReviews',$response['Items']['Item'])) {
             $description=$response['Items']['Item']['EditorialReviews']['EditorialReview']['Content'];
@@ -80,6 +96,16 @@ class AmazonApi {
             $feature="Not Found";
         }
 
+        if(is_array($feature))
+        {
+            $feature_data='';
+            foreach($feature as $key) {
+                $feature_data.=$key."\n";
+            }
+            $feature=$feature_data;
+        }
+
+
         if(array_key_exists('DetailPageURL',$response['Items']['Item'])) {
             $source_url=$response['Items']['Item']['DetailPageURL'];
         } else {
@@ -89,7 +115,6 @@ class AmazonApi {
         $result=array('product_id'=>$awz_product_id,'title'=>$title,'availability'=>$availability,
                     'price'=>$price,'image'=>$image,'feature'=>$feature,
                     'description'=>$description,'source_url'=>$source_url);
-
 
         return $result;
     }

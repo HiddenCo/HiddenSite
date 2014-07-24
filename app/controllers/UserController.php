@@ -149,6 +149,7 @@ class UserController extends BaseController{
     public function postSetting()
     {
         $input=Input::all();
+
         $setting=UserSettings::getUserSetting();
         if(array_key_exists('paypal_email',$input)) {
             $paypal_email=$input['paypal_email'];
@@ -183,61 +184,6 @@ class UserController extends BaseController{
             $data=array('data'=>$setting,'error'=>'have not exist zip code!');
             return View::make('members.usersetting',$data);
 
-        }
-
-        if(array_key_exists('access_key',$input)) {
-            $access_key=$input['access_key'];
-            $setting->aws_access_key=$access_key;
-            if(!isset($access_key) || (isset($access_key) && strlen($access_key)==0)) {
-                // report error
-                $data=array('data'=>$setting,'error'=>'access key is blank!');
-                return View::make('members.usersetting',$data);
-            }
-        } else {
-            // report error
-            $data=array('data'=>$setting,'error'=>'have not exist access key!');
-            return View::make('members.usersetting',$data);
-        }
-
-        if(array_key_exists('secret',$input)) {
-            $secret=$input['secret'];
-            $setting->aws_access_secret=$secret;
-            if(!isset($secret) || (isset($secret) && strlen($secret)==0)) {
-                // report error
-                $data=array('data'=>$setting,'error'=>'secret is blank!');
-                return View::make('members.usersetting',$data);
-            }
-        } else {
-            // report error
-            $data=array('data'=>$setting,'error'=>'have not exist secret!');
-            return View::make('members.usersetting',$data);
-        }
-        if(array_key_exists('associate_tag',$input)) {
-            $associate_tag=$input['associate_tag'];
-            $setting->aws_associate_tag=$associate_tag;
-            if(!isset($associate_tag) || (isset($associate_tag) && strlen($associate_tag)==0)) {
-                // report error
-                $data=array('data'=>$setting,'error'=>'associate tag is blank!');
-                return View::make('members.usersetting',$data);
-            }
-        } else {
-            // report error
-            $data=array('data'=>$setting,'error'=>'have not exist associate tag!');
-            return View::make('members.usersetting',$data);
-        }
-        if(array_key_exists('imgur_id',$input)) {
-            $imgur_id=$input['imgur_id'];
-            $setting->imgur_client_id=$imgur_id;
-            if(!isset($imgur_id) || (isset($imgur_id) && strlen($imgur_id)==0)) {
-                // report error
-                $data=array('data'=>$setting,'error'=>'imgur id is blank!');
-                return View::make('members.usersetting',$data);
-
-            }
-        } else {
-            // report error
-            $data=array('data'=>$setting,'error'=>'have not exist imgur id!');
-            return View::make('members.usersetting',$data);
         }
 
         try {
