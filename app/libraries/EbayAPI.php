@@ -13,7 +13,7 @@ class EbayAPI {
 
     }
     // Function to call the Trading API AddItem
-    public  static  function AddItem($addTitle, $addCatID, $addSPrice, $addPicture, $addDesc) {
+    public  static  function AddItem($addTitle, $addCatID, $addSPrice, $addPicture, $addDesc,$addZIP) {
 
         $user_setting=UserSettings::getUserSetting();
         /* Sample XML Request Block for minimum AddItem request
@@ -38,29 +38,29 @@ class EbayAPI {
         $xmlRequest .= "<CategoryMappingAllowed>true</CategoryMappingAllowed>";
         $xmlRequest .= "<Country>US</Country>";
         $xmlRequest .= "<Currency>USD</Currency>";
-        $xmlRequest .= "<DispatchTimeMax>3</DispatchTimeMax>";
-        $xmlRequest .= "<ListingDuration>Days_7</ListingDuration>";
-        $xmlRequest .= "<ListingType>Chinese</ListingType>";
+        $xmlRequest .= "<DispatchTimeMax>2</DispatchTimeMax>";
+        $xmlRequest .= "<ListingDuration>Days_30</ListingDuration>";
+        $xmlRequest .= "<ListingType>FixedPriceItem</ListingType>";
         $xmlRequest .= "<PaymentMethods>PayPal</PaymentMethods>";
         $xmlRequest .= "<PayPalEmailAddress>".$user_setting->paypal_email."</PayPalEmailAddress>";
         $xmlRequest .= "<PictureDetails>";
         $xmlRequest .= "<PictureURL>" . $addPicture . "</PictureURL>";
         $xmlRequest .= "</PictureDetails>";
-        $xmlRequest .= "<PostalCode>05485</PostalCode>";
-        $xmlRequest .= "<Quantity>1</Quantity>";
+        $xmlRequest .= "<PostalCode>" . $addZIP . "</PostalCode>";
+        $xmlRequest .= "<Quantity>2</Quantity>";
         $xmlRequest .= "<ReturnPolicy>";
         $xmlRequest .= "<ReturnsAcceptedOption>ReturnsAccepted</ReturnsAcceptedOption>";
         $xmlRequest .= "<RefundOption>MoneyBack</RefundOption>";
-        $xmlRequest .= "<ReturnsWithinOption>Days_30</ReturnsWithinOption>";
-        $xmlRequest .= "<Description>" . $addDesc . "</Description>";
+        $xmlRequest .= "<ReturnsWithinOption>Days_14</ReturnsWithinOption>";
+        $xmlRequest .= "<Description>Restocking fee may apply.</Description>";
         $xmlRequest .= "<ShippingCostPaidByOption>Buyer</ShippingCostPaidByOption>";
         $xmlRequest .= "</ReturnPolicy>";
         $xmlRequest .= "<ShippingDetails>";
         $xmlRequest .= "<ShippingType>Flat</ShippingType>";
         $xmlRequest .= "<ShippingServiceOptions>";
         $xmlRequest .= "<ShippingServicePriority>1</ShippingServicePriority>";
-        $xmlRequest .= "<ShippingService>USPSMedia</ShippingService>";
-        $xmlRequest .= "<ShippingServiceCost>2.50</ShippingServiceCost>";
+        $xmlRequest .= "<ShippingService>ShippingMethodStandard</ShippingService>";
+        $xmlRequest .= "<ShippingServiceCost>0.00</ShippingServiceCost>";
         $xmlRequest .= "</ShippingServiceOptions>";
         $xmlRequest .= "</ShippingDetails>";
         $xmlRequest .= "<Site>US</Site>";

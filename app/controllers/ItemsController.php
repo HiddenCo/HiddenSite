@@ -94,19 +94,11 @@ class ItemsController extends BaseController{
 
             // resize image first
             $img_url=$product_info['image'];
-            $img_url_encode=urlencode($img_url);
-            $link="http://i.embed.ly/1/image/resize?url=".$img_url_encode."&key=14ac1d6a581c48e0af0c61ba5ed9fd70&height=2000&grow=true";
-
-            $user_setting=UserSettings::getUserSetting();
-
-            // upload to Imgur
-
-            $image_ur_link=ImgurAPI::uploadImage($link,Config::get('aws.imgur_client_id'));
 
             // upload to ebay
 
             EbayAPI::AddItem($product_info['title'],$product_info['category'],
-                $product_info['price'],$image_ur_link,$product_info['description']);
+                $product_info['price'],$img_url,$product_info['description'],$user_setting->zip_code);
 
             Products::setEbayAdded($product_info['product_id']);
         }
@@ -126,10 +118,13 @@ class ItemsController extends BaseController{
     public function postSaveDelete()
     {
         $check_list=$_POST['check_list'];
+        $products=array_keys($check_list);
         if(isset($_POST['save'])) {
             // save items
-            foreach($check_list as $item) {
+            foreach($products as $item) {
+
                 $product=Products::getObject($item);
+
                 EbayAPI::AddItem($product->title,$product->ebay_category,$product->sell_price,
                     $product->image_urls,$product->description);
 
@@ -137,10 +132,11 @@ class ItemsController extends BaseController{
             }
 
         } else {
-            foreach($check_list as $item) {
+            foreach($products as $item) {
                 Products::DeleteProduct($item);
             }
         }
+        return Redirect::to('/user');
     }
 
 

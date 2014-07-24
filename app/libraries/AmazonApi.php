@@ -69,7 +69,12 @@ class AmazonApi {
 
         if(array_key_exists('Offers',$response['Items']['Item'])) {
             if(array_key_exists('Offer',$response['Items']['Item']['Offers'])) {
-                $price=$response['Items']['Item']['Offers']['Offer']['OfferListing']['Price']['Amount'];
+
+                var_dump($response['Items']['Item']['Offers']['Offer']);
+
+                $price=$response['Items']['Item']['Offers']['Offer']['OfferListing']['Price']['FormattedPrice'];
+                $price=floatval(substr($price,1));
+
             }else {
                 $price=0;
             }
@@ -87,6 +92,14 @@ class AmazonApi {
         //$Description=
 
         $image=$response['Items']['Item']['LargeImage']['URL'];
+
+        $img_url_encode=urlencode($image);
+        $link="http://i.embed.ly/1/image/resize?url=".$img_url_encode."&key=14ac1d6a581c48e0af0c61ba5ed9fd70&height=2000&grow=true";
+
+
+        // upload to Imgur
+
+        $image=ImgurAPI::uploadImage($link,Config::get('aws.imgur_client_id'));
 
         if(array_key_exists('Feature',$response['Items']['Item']['ItemAttributes']))
         {
