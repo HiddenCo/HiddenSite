@@ -73,9 +73,6 @@ class EbayAPI {
         $xmlRequest .= "<ExcludeShipToLocation>Southeast Asia</ExcludeShipToLocation>";
         $xmlRequest .= "<ExcludeShipToLocation>South America</ExcludeShipToLocation>";
         $xmlRequest .= "<ExcludeShipToLocation>Europe</ExcludeShipToLocation>";
-        $xmlRequest .= "<ExcludeShipToLocation>AL</ExcludeShipToLocation>";
-        $xmlRequest .= "<ExcludeShipToLocation>AD</ExcludeShipToLocation>";
-        $xmlRequest .= "<ExcludeShipToLocation>AF</ExcludeShipToLocation>";
         $xmlRequest .= "<ShipToRegistrationCountry>true</ShipToRegistrationCountry>";
         $xmlRequest .= "<ExcludeShipToLocation>PO Box</ExcludeShipToLocation>";
         $xmlRequest .= "<ExcludeShipToLocation>APO/FPO</ExcludeShipToLocation>";
