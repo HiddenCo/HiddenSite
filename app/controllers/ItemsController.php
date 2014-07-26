@@ -88,8 +88,22 @@ class ItemsController extends BaseController{
 
             // upload to ebay
 
+            // build description to ebay
+            $description="<h1>".$product_info['title']."</h1>";
+            $description.="<p>".$product_info['description']."<p>";
+            $description.="<ul>";
+
+            $features = explode("\n", $product_info['feature']);
+
+            foreach($features as $feature) {
+                if(strlen($feature)>0) {
+                    $description.="<li>".$feature."/li>";
+                }
+            }
+            $description.="</ul>";
+
             $response=EbayAPI::AddItem($product_info['title'],$product_info['category'],
-                $product_info['price'],$img_url,$product_info['description'],$user_setting->zip_code);
+                $product_info['price'],$img_url,$description,$user_setting->zip_code);
 
 
             // return the response XML
@@ -137,8 +151,23 @@ class ItemsController extends BaseController{
 
                     $user_setting=UserSettings::getUserSetting();
 
-                    $response=EbayAPI::AddItem($product->title,$product->ebay_category,$product->sell_price,
-                        $product->image_urls,$product->description,$user_setting->zip_code);
+                    // build description to ebay
+                    $description="<h1>".$product->title."</h1>";
+                    $description.="<p>".$product->description."<p>";
+                    $description.="<ul>";
+
+                    $features = explode("\n", $product->features);
+
+                    foreach($features as $feature) {
+                        if(strlen($feature)>0) {
+                            $description.="<li>".$feature."/li>";
+                        }
+
+                    }
+                    $description.="</ul>";
+
+                    $response=EbayAPI::AddItem($product->title,$product->ebay_category,$product->ebay_price,
+                        $product->image_urls,$description,$user_setting->zip_code);
 
 
                     if($response->Ack=='Failure') {
