@@ -56,7 +56,7 @@ class AmazonApi {
                 if(ord($title[$i])==34) {
                     $title1=substr($title,0,$i);
                     $tile2=substr($title,$i+1,strlen($title)-$i-1);
-                    $title=$title1.'%22'.$tile2;
+                    $title=$title1."&quot;".$tile2;
                     break;
                 }
             }
