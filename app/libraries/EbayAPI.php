@@ -36,6 +36,7 @@ class EbayAPI {
         $xmlRequest .= "</PrimaryCategory>";
         $xmlRequest .= "<StartPrice>" . $addSPrice . "</StartPrice>";
         $xmlRequest .= "<CategoryMappingAllowed>true</CategoryMappingAllowed>";
+        $xmlRequest .= "<ConditionID>1000</ConditionID>";
         $xmlRequest .= "<Country>US</Country>";
         $xmlRequest .= "<Currency>USD</Currency>";
         $xmlRequest .= "<DispatchTimeMax>2</DispatchTimeMax>";

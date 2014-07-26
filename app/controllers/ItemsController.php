@@ -151,7 +151,7 @@ class ItemsController extends BaseController{
                     $response=EbayAPI::AddItem($product->title,$product->ebay_category,$product->sell_price,
                         $product->image_urls,$product->description,$user_setting->zip_code);
 
-
+                    
                     if($response->Ack=='Failure') {
                         $error_str='';
                         $errors=$response->Errors;
