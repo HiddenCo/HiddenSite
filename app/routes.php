@@ -35,3 +35,5 @@ Route::Controller('user','UserController');
 Route::Controller('items','ItemsController');
 
 Route::Controller('system','SystemController');
+
+Route::Controller('price','PriceController');

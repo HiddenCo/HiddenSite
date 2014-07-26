@@ -34,21 +34,24 @@
         <div class="col-md-12">
             <div class="well">
 
-                <form role="form">
+                <form role="form" action="<?php echo URL::to('/')?>/user/billing" method="post">
 
 
                     <div class="form-group">
                         <label for="nameinput">First and Last Name</label>
-                        <input class="form-control" id="nameinput" placeholder="Your first and last name" type="text">
+                        <input class="form-control" id="name" name="name" placeholder="Your first and last name" type="text" value="<?php if(isset($data)) echo $data['name']; else echo '';?>">
                     </div>
                     <div class="form-group">
                         <label for="paypalemail">PayPal Email</label>
-                        <input class="form-control" id="paypalemail" placeholder="Your PayPal email" type="text">
+                        <input class="form-control" id="paypalemail" name="paypalemail" placeholder="Your PayPal email" type="email" value="<?php if(isset($data)) echo $data['paypal']; else echo '';?>">
                     </div>
                     <div class="form-group">
                         <label for="membership">Membership Level
                         </label>
-                        <input class="form-control" id="membership" placeholder="this will say if the account is Professional or Rookie... make it read only" type="text">
+                        <input class="form-control" id="membership" readonly="true" placeholder="this will say if the account is Professional or Rookie... make it read only" type="text" value="<?php if(isset($data)) echo $data['price_name']; else echo '';?>">
+                    </div>
+                    <div class="form-group">
+                        <?php if(isset($error)) {?><label style="color: red" for="passinput"><?php echo $error;?></label><?php }?>
                     </div>
 
                     <button type="submit" class="btn btn-success btn-block">Save Settings</button>

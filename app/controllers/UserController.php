@@ -220,4 +220,72 @@ class UserController extends BaseController{
         }
 
     }
+    public function getBilling()
+    {
+        try {
+            $user=Users::getObject();
+            if($user!=null) {
+
+                $user_setting=UserSettings::getUserSetting();
+                $user_price=UserPricing::getObject();
+                $price=Pricing::getObject($user_price->pricing_id);
+
+                $billing=array('name'=>$user->name,'paypal'=>$user_setting->paypal_email,'price_name'=>$price->name);
+                return View::make('items.billing')->with('data',$billing);
+            }
+        } catch(Exception $e) {
+            return ErrorResponse::Report($e);
+        }
+
+
+    }
+    public function postBilling()
+    {
+        try
+        {
+            $user=Users::getObject();
+
+            $user_setting=UserSettings::getUserSetting();
+            $user_price=UserPricing::getObject();
+            $price=Pricing::getObject($user_price->pricing_id);
+
+            $billing=array('name'=>$user->name,'paypal'=>$user_setting->paypal_email,'price_name'=>$price->name);
+
+            $input=Input::all();
+            if(array_key_exists('name',$input)) {
+                $name=$input['name'];
+            } else {
+                // return error
+                $billing['name']='';
+                $data=array('data'=>$billing,'error'=>'User name is not exist!');
+                return View::make('items/billing',$data);
+            }
+            if(strlen($name)==0) {
+                $billing['name']='';
+                $data=array('data'=>$billing,'error'=>'User name is not exist!');
+                return View::make('items/billing',$data);
+            }
+            if(array_key_exists('paypalemail',$input)) {
+                $paypalemail=$input['paypalemail'];
+            } else {
+                $billing['paypal']='';
+                $data=array('data'=>$billing,'error'=>'Paypal email is not exist!');
+                return View::make('items/billing',$data);
+            }
+            if(!filter_var($paypalemail,FILTER_VALIDATE_EMAIL)) {
+                $billing['paypal']=$paypalemail;
+                $data=array('data'=>$billing,'error'=>'The email format is wrong!');
+                return View::make('items/billing',$data);
+            }
+            // save to user
+            Users::updateUserName($name);
+            UserSettings::updatePayaplEmail($paypalemail);
+
+            return Redirect::to('/user/billing');
+        } catch(Exception $e) {
+            return ErrorResponse::Report($e);
+        }
+
+
+    }
 } 

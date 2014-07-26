@@ -39,7 +39,7 @@
                         <a href="<?php echo URL::to('/')?>/user/setting" class="btn btn-warning">Change Settings</a>
                     </div>
                     <div class="btn-group">
-                        <a href="<?php echo URL::to('/')?>/items/billing" class="btn btn-danger">Upgrade Plan / Billing Settings</a>
+                        <a href="<?php echo URL::to('/')?>/user/billing" class="btn btn-danger">Upgrade Plan / Billing Settings</a>
                     </div>
                 </div>
             </div>

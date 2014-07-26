@@ -32,5 +32,11 @@ class UserSettings extends Eloquent {
             return null;
         }
     }
+    public static function updatePayaplEmail($email)
+    {
+        $user_id=Session::get('user_id');
+        $sql="update user_settings set paypal_email=? where user_id=?";
 
+        DB::update($sql,array($email,$user_id));
+    }
 } 

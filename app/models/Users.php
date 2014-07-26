@@ -68,4 +68,21 @@ class Users extends Eloquent{
         $sql="update user_settings set token=? where  user_id=?";
         DB::update($sql,array($token,Session::get('user_id')));
     }
+    public static function getObject()
+    {
+        $user_id=Session::get('user_id');
+        $sql="select * from users where id=?";
+        $result=DB::select($sql,array($user_id));
+        if(count($result)>0) {
+            return $result[0];
+        } else {
+            return null;
+        }
+    }
+    public static function updateUserName($name)
+    {
+        $user_id=Session::get('user_id');
+        $sql="update users set name=? where id=?";
+        DB::update($sql,array($name,$user_id));
+    }
 }

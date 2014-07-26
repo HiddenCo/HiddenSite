@@ -104,7 +104,7 @@
                         <strong>1</strong> Description Template
                     </li>
                     <li class="plan-action">
-                        <a href="#" class="btn btn-danger btn-block btn-lg">Get It Now!</a>
+                        <a href="<?php echo URL::to('/')?>/price?id=1" class="btn btn-danger btn-block btn-lg">Get It Now!</a>
                     </li>
                 </ul>
             </div>
@@ -124,14 +124,10 @@
                         <strong>10</strong> Description Templates
                     </li>
                     <li class="plan-action">
-                        <a href="#" class="btn btn-danger btn-block btn-lg">Get It Now!</a>
+                        <a href="<?php echo URL::to('/')?>/price?id=2" class="btn btn-danger btn-block btn-lg">Get It Now!</a>
                     </li>
                 </ul>
-
-
             </div>
-
-
         </div>
         <p class="text-center">
             You can cancel your subscription at anytime by going to PayPal and following <a href="https://www.paypal.com/uk/webapps/helpcenter/helphub/article/?solutionId=FAQ2145&amp;topicID=SUBSCRIPTIONS_AND_BILLING_AGREEMENTS_HELPHUB&amp;m=TCI">these instructions</a>.

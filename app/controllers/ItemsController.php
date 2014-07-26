@@ -22,10 +22,6 @@ class ItemsController extends BaseController{
     {
         return View::make('items.viewitem');
     }
-    public function getBilling()
-    {
-        return View::make('items.billing');
-    }
 
     public function postSave()
     {
