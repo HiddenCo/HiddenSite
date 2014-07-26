@@ -88,9 +88,6 @@
 <div class="container">
 
     <div class="row">
-
-
-
         <div class="row flat" style="margin-left: 0px;margin-right: 0px;">
             <div class="col-lg-6 col-md-6 col-xs-6">
                 <ul class="plan plan1">
@@ -136,8 +133,38 @@
 
 
         </div>
+        <p class="text-center">
+            You can cancel your subscription at anytime by going to PayPal and following <a href="https://www.paypal.com/uk/webapps/helpcenter/helphub/article/?solutionId=FAQ2145&amp;topicID=SUBSCRIPTIONS_AND_BILLING_AGREEMENTS_HELPHUB&amp;m=TCI">these instructions</a>.
+        </p>
+        <div class="col-md-12">
+            <div class="alert alert-dismissable alert-success">
+                <strong>Note: &nbsp;</strong>As features are added, pricing is likely to change. Whether or not there will be the option to keep the same features/price is undecided.</div>
 
 
+            <div class="well">
+                <div>
+                    <ul class="nav nav-pills nav-justified">
+                        <li>
+                            <a href="<?php echo URL::to('/')?>">Home</a>
+                        </li>
+                        <li>
+                            <a href="<?php echo URL::to('/')?>/system/about">About Us</a>
+                        </li>
+                        <li>
+                            <a href="<?php echo URL::to('/')?>/system/term">Terms of Service</a>
+                        </li>
+                        <li>
+                            <a href="<?php echo URL::to('/')?>/system/privacy">Privacy Policy</a>
+                        </li>
+
+                    </ul>
+                </div>
+
+            </div>
+            <p class="text-center">
+                © Copyright 2014 Listerr.co - Listerr is not associated with Amazon nor eBay. Designed with
+                <a href="http://getbootstrap.com">Bootstrap</a>.
+            </p></div>
     </div>
 </div>
 @endsection

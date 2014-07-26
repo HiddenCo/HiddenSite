@@ -87,22 +87,23 @@ class AmazonApi {
 
         if(array_key_exists('EditorialReviews',$response['Items']['Item'])) {
             if(is_array($response['Items']['Item']['EditorialReviews']['EditorialReview'])) {
-                if(array_key_exists('Content',$response['Items']['Item']['EditorialReviews']['EditorialReview'][0])) {
 
-                    $description=$response['Items']['Item']['EditorialReviews']['EditorialReview'][0]['Content'];
+                if(array_key_exists('Content',$response['Items']['Item']['EditorialReviews']['EditorialReview'])) {
+
+                    $description=$response['Items']['Item']['EditorialReviews']['EditorialReview']['Content'];
+                } elseif(array_key_exists('0',$response['Items']['Item']['EditorialReviews']['EditorialReview'])){
+                    if(array_key_exists('Content',$response['Items']['Item']['EditorialReviews']['EditorialReview'][0])) {
+
+                        $description=$response['Items']['Item']['EditorialReviews']['EditorialReview'][0]['Content'];
+                    } else {
+                        $description="Not Found";
+                    }
                 } else {
                     $description="Not Found";
                 }
             } else {
-                if(array_key_exists('Content',$response['Items']['Item']['EditorialReviews']['EditorialReview'])) {
-
-                    $description=$response['Items']['Item']['EditorialReviews']['EditorialReview']['Content'];
-                } else {
-                    $description="Not Found";
-                }
+                $description="Not Found";
             }
-
-
         } else {
             $description="Not Found";
         }

@@ -40,11 +40,18 @@ class ItemsController extends BaseController{
                 return View::make('items.listitem')->with('error','Amazon Product Id is require');
             }
 
+            if(isset($_POST['btn_autofill'])) {
+                $product= self::getAmazonProductInformation($amazon_id);
+
+                return View::make('items.listitem')->with('product',$product);
+            }
+
             $category_input=$input['category_input'];
             if(!is_numeric($category_input)) {
                 // error
                 return View::make('items.listitem')->with('error','Category must be number');
             }
+
             $product_info=self::saveItem();
 
             if(isset($_POST['save_post'])) {
@@ -61,30 +68,16 @@ class ItemsController extends BaseController{
     {
         $input=Input::all();
 
-        $status=$input['status'];
-        if($status=='new') {// add new
-            $amazon_id=$input['amazon_id'];
+        $product_info['product_id']=$input['amazon_id'];
+        $product_info['title']=$input['title_input'];
+        $product_info['category']=$input['category_input'];
+        $product_info['price']=$input['sell_input'];
+        $product_info['image']=$input['images_input'];
+        $product_info['description']=$input['desc_input'];
+        $product_info['feature']=$input['features_input'];
+        $product_info['availability']=$input['avail_input'];
 
-            $category_input=$input['category_input'];
-
-            $amazon_obj=AmazonApi::getInstance();
-            $product_info=$amazon_obj->getProductInformation($amazon_id);
-
-            $product_info['category']=$category_input;
-
-            Products::AddNewProduct($product_info);
-        } else {// update
-            $product_info['product_id']=$input['amazon_id'];
-            $product_info['title']=$input['title_input'];
-            $product_info['category']=$input['category_input'];
-            $product_info['price']=$input['sell_input'];
-            $product_info['image']=$input['images_input'];
-            $product_info['description']=$input['desc_input'];
-            $product_info['feature']=$input['features_input'];
-            $product_info['availability']=$input['avail_input'];
-
-            Products::AddNewProduct($product_info);
-        }
+        Products::AddNewProduct($product_info);
 
         return $product_info;
     }
@@ -151,7 +144,7 @@ class ItemsController extends BaseController{
                     $response=EbayAPI::AddItem($product->title,$product->ebay_category,$product->sell_price,
                         $product->image_urls,$product->description,$user_setting->zip_code);
 
-                    
+
                     if($response->Ack=='Failure') {
                         $error_str='';
                         $errors=$response->Errors;
@@ -179,6 +172,24 @@ class ItemsController extends BaseController{
         } catch(Exception $e) {
             return ErrorResponse::Report($e);
         }
+    }
+    private function getAmazonProductInformation($amazon_id)
+    {
+        $amazon_obj=AmazonApi::getInstance();
+        $product_info=$amazon_obj->getProductInformation($amazon_id);
+
+        $product=new Products();
+        $product->amazon_id=$amazon_id;
+        $product->title=$product_info['title'];
+        $product->features=$product_info['feature'];
+        $product->description=$product_info['description'];
+        $product->availability=$product_info['availability'];
+        $product->image_urls=$product_info['image'];
+        $product->aws_price=$product_info['price'];
+        $product->ebay_price=$product_info['price'];
+        $product->source_url=$product_info['source_url'];
+
+        return $product;
     }
 
 

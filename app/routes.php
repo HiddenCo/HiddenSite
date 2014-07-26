@@ -33,3 +33,5 @@ Route::get('/test',function() {
 Route::Controller('user','UserController');
 //Items
 Route::Controller('items','ItemsController');
+
+Route::Controller('system','SystemController');

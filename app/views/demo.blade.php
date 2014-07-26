@@ -47,6 +47,30 @@
                 <p style="text-align:center">Ever wish you could have more free time in your life?  Now you can with our *almost* fully automated drop-shipping listing system.  Automatically retrieving item information quickly creates your eBay listing.  However, when you can click a button and automatically upload the item to your eBay account, you've got something special.  You've got a tool that kicks ass.  Welcome to Listerr.</p>
                 <a href="<?php echo URL::to('/')?>/pricing" class="btn btn-success btn-block btn-lg">See Pricing!</a>
             </div>
+            <div class="well">
+                <div>
+                    <ul class="nav nav-pills nav-justified">
+                        <li>
+                            <a href="<?php echo URL::to('/')?>">Home</a>
+                        </li>
+                        <li>
+                            <a href="<?php echo URL::to('/')?>/system/about">About Us</a>
+                        </li>
+                        <li>
+                            <a href="<?php echo URL::to('/')?>/system/term">Terms of Service</a>
+                        </li>
+                        <li>
+                            <a href="<?php echo URL::to('/')?>/system/privacy">Privacy Policy</a>
+                        </li>
+
+                    </ul>
+                </div>
+
+            </div>
+            <p class="text-center">
+                © Copyright 2014 Listerr.co - Listerr is not associated with Amazon nor eBay. Designed with
+                <a href="http://getbootstrap.com">Bootstrap</a>.
+            </p>
         </div>
     </div>
 

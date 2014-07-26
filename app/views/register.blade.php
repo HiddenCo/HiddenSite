@@ -60,6 +60,30 @@
                 </form>
 
             </div>
+            <div class="well">
+                <div>
+                    <ul class="nav nav-pills nav-justified">
+                        <li>
+                            <a href="<?php echo URL::to('/')?>">Home</a>
+                        </li>
+                        <li>
+                            <a href="<?php echo URL::to('/')?>/system/about">About Us</a>
+                        </li>
+                        <li>
+                            <a href="<?php echo URL::to('/')?>/system/term">Terms of Service</a>
+                        </li>
+                        <li>
+                            <a href="<?php echo URL::to('/')?>/system/privacy">Privacy Policy</a>
+                        </li>
+
+                    </ul>
+                </div>
+
+            </div>
+            <p class="text-center">
+                © Copyright 2014 Listerr.co - Listerr is not associated with Amazon nor eBay. Designed with
+                <a href="http://getbootstrap.com">Bootstrap</a>.
+            </p>
         </div>
     </div>
 
