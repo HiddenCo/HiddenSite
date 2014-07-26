@@ -97,7 +97,7 @@ class ItemsController extends BaseController{
             // upload to ebay
 
             // build description to ebay
-            $description="<h1>".$product_info['title']."</h1>";
+            $description="<![CDATA[<h1>".$product_info['title']."</h1>";
             $description.="<p>".$product_info['description']."</p>";
             $description.="<ul>";
 
@@ -108,7 +108,9 @@ class ItemsController extends BaseController{
                     $description.="<li>".$feature."</li>";
                 }
             }
-            $description.="</ul>";
+            $description.="</ul>]]>";
+
+
 
             $response=EbayAPI::AddItem($product_info['title'],$product_info['category'],
                 $product_info['price'],$img_url,$description,$user_setting->zip_code);
@@ -159,8 +161,9 @@ class ItemsController extends BaseController{
 
                     $user_setting=UserSettings::getUserSetting();
 
+                    //$description=$product->description;
                     // build description to ebay
-                    $description="<h1>".$product->title."</h1>";
+                    $description="<![CDATA[<h1>".$product->title."</h1>";
                     $description.="<p>".$product->description."</p>";
                     $description.="<ul>";
 
@@ -172,7 +175,9 @@ class ItemsController extends BaseController{
                         }
 
                     }
-                    $description.="</ul>";
+                    $description.="</ul>]]>";
+
+
 
                     $response=EbayAPI::AddItem($product->title,$product->ebay_category,$product->ebay_price,
                         $product->image_urls,$description,$user_setting->zip_code);
