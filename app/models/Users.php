@@ -29,8 +29,11 @@ class Users extends Eloquent{
 
         $user_id=DB::connection()->getPdo()->lastInsertId();
 
+        Session::put('user_id',$user_id);
+
         // init default value for user setting
         UserSettings::CreateDefaultObject($user_id);
+        UserPricing::setUserPricing(1);
 
         return $user_id;
 

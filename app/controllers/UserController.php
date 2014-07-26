@@ -98,7 +98,7 @@ class UserController extends BaseController{
             // register user
             $user_id=Users::registerUser($name,$email,$password);
 
-            Session::put('user_id',$user_id);
+
             // redirect to member page
             return Redirect::to('/user');
         } catch (Exception $e) {
