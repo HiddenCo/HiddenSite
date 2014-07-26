@@ -39,6 +39,8 @@ class ItemsController extends BaseController{
             if(isset($_POST['btn_autofill'])) {
                 $product= self::getAmazonProductInformation($amazon_id);
 
+                $product->ebay_category=$input['category_input'];
+
                 return View::make('items.listitem')->with('product',$product);
             }
 
