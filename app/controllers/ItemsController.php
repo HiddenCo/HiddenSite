@@ -99,7 +99,7 @@ class ItemsController extends BaseController{
 
             foreach($features as $feature) {
                 if(strlen($feature)>0) {
-                    $description.="<li>".$feature."/li>";
+                    $description.="<li>".$feature."</li>";
                 }
             }
             $description.="</ul>";
@@ -162,7 +162,7 @@ class ItemsController extends BaseController{
 
                     foreach($features as $feature) {
                         if(strlen($feature)>0) {
-                            $description.="<li>".$feature."/li>";
+                            $description.="<li>".$feature."</li>";
                         }
 
                     }
