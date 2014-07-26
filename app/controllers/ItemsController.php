@@ -99,8 +99,22 @@ class ItemsController extends BaseController{
 
             // upload to ebay
 
-            EbayAPI::AddItem($product_info['title'],$product_info['category'],
+            $response=EbayAPI::AddItem($product_info['title'],$product_info['category'],
                 $product_info['price'],$img_url,$product_info['description'],$user_setting->zip_code);
+
+
+            // return the response XML
+            if($response->Ack=='Failure') {
+                $error_str='';
+                $errors=$response->Errors;
+
+                if(is_array($errors)) {
+                    foreach($errors as $error) {
+                        $error_str.=$error->LongMessage."\n";
+                    }
+                }
+                throw new APIException($error_str,500);
+            }
 
             Products::setEbayAdded($product_info['product_id']);
         }
@@ -119,28 +133,49 @@ class ItemsController extends BaseController{
     }
     public function postSaveDelete()
     {
-        $check_list=$_POST['check_list'];
-        $products=array_keys($check_list);
-        if(isset($_POST['save'])) {
-            // save items
-            foreach($products as $item) {
+        try
+        {
+            $check_list=$_POST['check_list'];
+            $products=array_keys($check_list);
+            if(isset($_POST['save'])) {
+                // save items
+                foreach($products as $item) {
 
-                $product=Products::getObject($item);
+                    $product=Products::getObject($item);
 
-                $user_setting=UserSettings::getUserSetting();
+                    $user_setting=UserSettings::getUserSetting();
 
-                EbayAPI::AddItem($product->title,$product->ebay_category,$product->sell_price,
-                    $product->image_urls,$product->description,$user_setting->zip_code);
+                    $response=EbayAPI::AddItem($product->title,$product->ebay_category,$product->sell_price,
+                        $product->image_urls,$product->description,$user_setting->zip_code);
 
-                Products::setEbayAdded($product->amazon_id);
+                    
+                    if($response->Ack=='Failure') {
+                        $error_str='';
+                        $errors=$response->Errors;
+
+                        if(is_array($errors)) {
+                            foreach($errors as $error) {
+                                $error_str.=$error->LongMessage."\n";
+                            }
+                        } else {
+                            $error_str.=$errors->LongMessage."\n";
+                        }
+
+                        throw new Exception($error_str);
+                    }
+
+                    Products::setEbayAdded($product->amazon_id);
+                }
+
+            } else {
+                foreach($products as $item) {
+                    Products::DeleteProduct($item);
+                }
             }
-
-        } else {
-            foreach($products as $item) {
-                Products::DeleteProduct($item);
-            }
+            return Redirect::to('/user');
+        } catch(Exception $e) {
+            return ErrorResponse::Report($e);
         }
-        return Redirect::to('/user');
     }
 
 

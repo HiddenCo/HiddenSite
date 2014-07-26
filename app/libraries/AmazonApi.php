@@ -54,6 +54,8 @@ class AmazonApi {
             $title="Not Found";
         }
 
+        $title=str_replace('&','and',$title);
+
 
         if(array_key_exists('Offers',$response['Items']['Item'])) {
             if(array_key_exists('Offer',$response['Items']['Item']['Offers'])) {
@@ -65,6 +67,8 @@ class AmazonApi {
         } else {
             $availability="Not Found";
         }
+
+        $availability=str_replace('&','and',$availability);
 
 
         if(array_key_exists('Offers',$response['Items']['Item'])) {
@@ -103,6 +107,8 @@ class AmazonApi {
             $description="Not Found";
         }
 
+        $description=str_replace('&','and',$description);
+
         //$Description=
 
         $image=$response['Items']['Item']['LargeImage']['URL'];
@@ -131,7 +137,7 @@ class AmazonApi {
             }
             $feature=$feature_data;
         }
-
+        $feature=str_replace('&','and',$feature);
 
         if(array_key_exists('DetailPageURL',$response['Items']['Item'])) {
             $source_url=$response['Items']['Item']['DetailPageURL'];

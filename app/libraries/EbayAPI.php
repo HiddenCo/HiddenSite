@@ -7,6 +7,7 @@
  */
 
 include_once('ebayConfig.php');
+
 class EbayAPI {
     function __construct()
     {
@@ -19,12 +20,12 @@ class EbayAPI {
         /* Sample XML Request Block for minimum AddItem request
         see ... for sample XML block given length*/
 
-        // Create unique id for adding item to prevent duplicate adds
-        $uuid = md5(uniqid());
-
         // create the XML request
         $xmlRequest  = "<?xml version=\"1.0\" encoding=\"utf-8\"?>";
         $xmlRequest .= "<AddItemRequest xmlns=\"urn:ebay:apis:eBLBaseComponents\">";
+        $xmlRequest .= "<RequesterCredentials>";
+        $xmlRequest .= "<eBayAuthToken>".$user_setting->token."</eBayAuthToken>";
+        $xmlRequest .= "</RequesterCredentials>";
         $xmlRequest .= "<ErrorLanguage>en_US</ErrorLanguage>";
         $xmlRequest .= "<WarningLevel>High</WarningLevel>";
         $xmlRequest .= "<Item>";
@@ -34,7 +35,6 @@ class EbayAPI {
         $xmlRequest .= "<CategoryID>" . $addCatID . "</CategoryID>";
         $xmlRequest .= "</PrimaryCategory>";
         $xmlRequest .= "<StartPrice>" . $addSPrice . "</StartPrice>";
-        $xmlRequest .= "<ConditionID>1000</ConditionID>";
         $xmlRequest .= "<CategoryMappingAllowed>true</CategoryMappingAllowed>";
         $xmlRequest .= "<Country>US</Country>";
         $xmlRequest .= "<Currency>USD</Currency>";
@@ -56,20 +56,15 @@ class EbayAPI {
         $xmlRequest .= "<ShippingCostPaidByOption>Buyer</ShippingCostPaidByOption>";
         $xmlRequest .= "</ReturnPolicy>";
         $xmlRequest .= "<ShippingDetails>";
-        $xmlRequest .= "<ShippingType>Flat</ShippingType>";
         $xmlRequest .= "<ShippingServiceOptions>";
         $xmlRequest .= "<ShippingServicePriority>1</ShippingServicePriority>";
         $xmlRequest .= "<ShippingService>ShippingMethodStandard</ShippingService>";
         $xmlRequest .= "<ShippingServiceCost>0.00</ShippingServiceCost>";
+        $xmlRequest .= "<ShippingServiceAdditionalCost>0.0</ShippingServiceAdditionalCost>";
+        $xmlRequest .= "<ExpeditedService>false</ExpeditedService>";
         $xmlRequest .= "</ShippingServiceOptions>";
         $xmlRequest .= "</ShippingDetails>";
-        $xmlRequest .= "<Site>US</Site>";
-        $xmlRequest .= "<UUID>" . $uuid . "</UUID>";
         $xmlRequest .= "</Item>";
-        $xmlRequest .= "<RequesterCredentials>";
-        $xmlRequest .= "<eBayAuthToken>".$user_setting->token."</eBayAuthToken>";
-        $xmlRequest .= "</RequesterCredentials>";
-        $xmlRequest .= "<WarningLevel>High</WarningLevel>";
         $xmlRequest .= "</AddItemRequest>";
 
         // define our header array for the Trading API call
@@ -92,15 +87,17 @@ class EbayAPI {
         curl_setopt($session, CURLOPT_POST, true);
         curl_setopt($session, CURLOPT_POSTFIELDS, $xmlRequest);
         curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($session, CURLOPT_SSL_VERIFYPEER, 0);
 
         // execute the curl request
         $responseXML = curl_exec($session);
+        $response=simplexml_load_string($responseXML);
+
 
         // close the curl session
         curl_close($session);
 
-        // return the response XML
-        return $responseXML;
+        return $response;
     }
     private static  function MakeAPICall($xmlRequest,$apiName)
     {
