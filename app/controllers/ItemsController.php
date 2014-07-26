@@ -112,8 +112,11 @@ class ItemsController extends BaseController{
                     foreach($errors as $error) {
                         $error_str.=$error->LongMessage."\n";
                     }
+                } else {
+                    $error_str.=$errors->LongMessage."\n";
                 }
-                throw new APIException($error_str,500);
+
+                throw new Exception($error_str);
             }
 
             Products::setEbayAdded($product_info['product_id']);
@@ -148,7 +151,7 @@ class ItemsController extends BaseController{
                     $response=EbayAPI::AddItem($product->title,$product->ebay_category,$product->sell_price,
                         $product->image_urls,$product->description,$user_setting->zip_code);
 
-                    
+
                     if($response->Ack=='Failure') {
                         $error_str='';
                         $errors=$response->Errors;
