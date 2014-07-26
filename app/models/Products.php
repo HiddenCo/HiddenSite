@@ -36,11 +36,11 @@ class Products extends Eloquent{
         {
             return self::updateObject($input);
         }
-        $sql="insert into products (created_at,user_id,amazon_id,title,features,description,availability,image_urls,ebay_price,ebay_category)
-                values (now(),?,?,?,?,?,?,?,?,?)";
+        $sql="insert into products (created_at,user_id,amazon_id,title,features,description,availability,image_urls,ebay_price,aws_price,ebay_category)
+                values (now(),?,?,?,?,?,?,?,?,?,?)";
         DB::insert($sql,array(Session::get('user_id'),$input['product_id'],$input['title'],
             $input['feature'],$input['description'],$input['availability'],$input['image'],
-            $input['price'],$input['category']));
+            $input['price'],$input['aws_price'],$input['category']));
     }
     public static function DeleteProduct($product_id)
     {

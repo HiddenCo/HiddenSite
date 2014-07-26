@@ -75,6 +75,12 @@ class ItemsController extends BaseController{
         $product_info['feature']=$input['features_input'];
         $product_info['availability']=$input['avail_input'];
 
+        if(array_key_exists('aws_price',$input)) {
+            $product_info['aws_price']=$input['aws_price'];
+        } else {
+            $product_info['aws_price']=0;
+        }
+
         Products::AddNewProduct($product_info);
 
         return $product_info;
@@ -92,7 +98,7 @@ class ItemsController extends BaseController{
 
             // build description to ebay
             $description="<h1>".$product_info['title']."</h1>";
-            $description.="<p>".$product_info['description']."<p>";
+            $description.="<p>".$product_info['description']."</p>";
             $description.="<ul>";
 
             $features = explode("\n", $product_info['feature']);
@@ -155,7 +161,7 @@ class ItemsController extends BaseController{
 
                     // build description to ebay
                     $description="<h1>".$product->title."</h1>";
-                    $description.="<p>".$product->description."<p>";
+                    $description.="<p>".$product->description."</p>";
                     $description.="<ul>";
 
                     $features = explode("\n", $product->features);

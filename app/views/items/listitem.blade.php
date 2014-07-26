@@ -32,7 +32,7 @@
     <div class="well">
 
         <label style="color: red;" for=""><?php if(isset($error)) echo $error;?></label>
-        <form role="form" action="<?php echo URL::to('/')?>/items/save" method="post">
+        <form role="form" action="<?php echo URL::to('/')?>/items/save<?php if(isset($product)) echo "?aws_price=".$product->aws_price;?>" method="post">
 
             <div class="form-group">
                 <h4>ASIN</h4>
@@ -55,7 +55,7 @@
             <hr>
             <div class="form-group">
                 <h4>Title</h4>
-                <input class="form-control" id="title_input" name="title_input" maxlength="80" onkeyup="textCounter(this,'counter',80);" placeholder="Enter Product Title (for eBay)" type="text" value="<?php if(isset($product))  {echo $product->title;}?>">
+                <input class="form-control" id="title_input" name="title_input" maxlength="80" onchange="textCounter(this,'counter',80);" placeholder="Enter Product Title (for eBay)" type="text" value="<?php if(isset($product))  {echo $product->title;}?>">
                 <input readonly="" class="form-control" maxlength="3" size="3" value="80 characters left" id="counter">
                 <script>
                     function textCounter(field,field2,maxlimit)
