@@ -51,6 +51,7 @@ class AmazonApi {
         if(array_key_exists('ItemAttributes',$response['Items']['Item'])) {
 
             $title=$response['Items']['Item']['ItemAttributes']['Title'];
+            $title=str_replace('&','and',$title);
             for ($i = 0; $i < strlen($title); $i++)
             {
                 if(ord($title[$i])==34) {
@@ -63,8 +64,6 @@ class AmazonApi {
         } else {
             $title="Not Found";
         }
-
-        $title=str_replace('&','and',$title);
 
         if(strlen($title)>80){
             $title=substr($title,0,79);
