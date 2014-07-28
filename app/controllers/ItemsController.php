@@ -110,8 +110,6 @@ class ItemsController extends BaseController{
             }
             $description.="</ul>]]>";
 
-
-
             $response=EbayAPI::AddItem($product_info['title'],$product_info['category'],
                 $product_info['price'],$img_url,$description,$user_setting->zip_code);
 
@@ -120,6 +118,8 @@ class ItemsController extends BaseController{
             if($response->Ack=='Failure') {
                 $error_str='';
                 $errors=$response->Errors;
+
+                var_dump($response); exit;
 
                 if(is_array($errors)) {
                     foreach($errors as $error) {
@@ -177,8 +177,6 @@ class ItemsController extends BaseController{
                     }
                     $description.="</ul>]]>";
 
-
-
                     $response=EbayAPI::AddItem($product->title,$product->ebay_category,$product->ebay_price,
                         $product->image_urls,$description,$user_setting->zip_code);
 
@@ -186,6 +184,8 @@ class ItemsController extends BaseController{
                     if($response->Ack=='Failure') {
                         $error_str='';
                         $errors=$response->Errors;
+
+                        var_dump($response); exit;
 
                         if(is_array($errors)) {
                             foreach($errors as $error) {

@@ -66,6 +66,10 @@ class AmazonApi {
 
         $title=str_replace('&','and',$title);
 
+        if(strlen($title)>180) {
+            $title=substr($title,0,179);
+        }
+
 
         if(array_key_exists('Offers',$response['Items']['Item'])) {
             if(array_key_exists('Offer',$response['Items']['Item']['Offers'])) {

@@ -92,6 +92,7 @@
                         </tbody>
 
                     </table>
+                    <?php if(count($products)>0) {?>
                     <div class="btn-group btn-group-justified">
                         <div class="btn-group">
                             <button type="submit" name="save" id="save" class="btn btn-success">List on eBay</button>
@@ -101,6 +102,7 @@
                         </div>
 
                     </div>
+                    <?php }?>
                 </form>
             </div>
             <div class="well">
