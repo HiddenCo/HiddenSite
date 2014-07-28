@@ -119,8 +119,6 @@ class ItemsController extends BaseController{
                 $error_str='';
                 $errors=$response->Errors;
 
-                var_dump($response); exit;
-
                 if(is_array($errors)) {
                     foreach($errors as $error) {
                         $error_str.=$error->LongMessage."\n";
@@ -184,8 +182,6 @@ class ItemsController extends BaseController{
                     if($response->Ack=='Failure') {
                         $error_str='';
                         $errors=$response->Errors;
-
-                        var_dump($response); exit;
 
                         if(is_array($errors)) {
                             foreach($errors as $error) {

@@ -66,8 +66,8 @@ class AmazonApi {
 
         $title=str_replace('&','and',$title);
 
-        if(strlen($title)>180) {
-            $title=substr($title,0,179);
+        if(strlen($title)>80){
+            $title=substr($title,0,79);
         }
 
 
