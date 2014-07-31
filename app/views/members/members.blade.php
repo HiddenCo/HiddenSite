@@ -75,7 +75,7 @@
                                 </td>
                                 <td><?php echo $product->title;?></td>
                                 <td><a target="_blank" href="<?php echo $product->source_url;?>">Product Link</a></td>
-                                <td><?php echo '$'.$product->ebay_price;?></td>
+                                <td><?php if(UserSettings::getUserSetting()->lang=='com') {echo '$';} else {echo '£';} echo $product->ebay_price;?></td>
                                 <td>
                                     <?php if($product->ebay_added) {?>
                                         <span style="color:green;">LIVE</span>

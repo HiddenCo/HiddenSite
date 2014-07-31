@@ -209,8 +209,17 @@ class ItemsController extends BaseController{
     }
     private function getAmazonProductInformation($amazon_id)
     {
+        $user_setting=UserSettings::getUserSetting();
+        if($user_setting->lang=='com') {
+            $money='$';
+        } elseif($user_setting->lang=='co.uk') {
+            $money='£';
+        } else {
+            $money='$';
+        }
+
         $amazon_obj=AmazonApi::getInstance();
-        $product_info=$amazon_obj->getProductInformation($amazon_id);
+        $product_info=$amazon_obj->getProductInformation($amazon_id,$money);
 
         $product=new Products();
         $product->amazon_id=$amazon_id;

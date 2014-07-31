@@ -32,7 +32,7 @@ class AmazonApi {
         }
         return self::$instance;
     }
-    public function getProductInformation($awz_product_id)
+    public function getProductInformation($awz_product_id,$money_format)
     {
         $this->awz_ecs->returnType(AmazonECS::RETURN_TYPE_ARRAY);
         $response=$this->awz_ecs->responseGroup('Large,EditorialReview')->lookup($awz_product_id);
@@ -84,11 +84,13 @@ class AmazonApi {
         $availability=str_replace('&','and',$availability);
 
 
-        if(array_key_exists('Offers',$response['Items']['Item'])) {
-            if(array_key_exists('Offer',$response['Items']['Item']['Offers'])) {
 
+        if(array_key_exists('Offers',$response['Items']['Item'])) {
+
+            if(array_key_exists('Offer',$response['Items']['Item']['Offers'])) {
                 $price=$response['Items']['Item']['Offers']['Offer']['OfferListing']['Price']['FormattedPrice'];
-                $price=floatval(substr($price,1));
+                $price=strstr($price,$money_format);
+                $price=floatval(substr($price,strlen($money_format)));
 
             }else {
                 $price=0;
@@ -125,7 +127,13 @@ class AmazonApi {
 
         //$Description=
 
-        $image=$response['Items']['Item']['LargeImage']['URL'];
+
+
+        if(array_key_exists('LargeImage',$response['Items']['Item'])) {
+            $image=$response['Items']['Item']['LargeImage']['URL'];
+        } elseif(array_key_exists('ImageSets',$response['Items']['Item'])) {
+            $image= $response['Items']['Item']['ImageSets']['ImageSet']['LargeImage']['URL'];
+        }
 
         $img_url_encode=urlencode($image);
         $link="http://i.embed.ly/1/image/resize?url=".$img_url_encode."&key=14ac1d6a581c48e0af0c61ba5ed9fd70&height=2000&grow=true";

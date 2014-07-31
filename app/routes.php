@@ -25,8 +25,8 @@ Route::get('/pricing', function()
 });
 
 Route::get('/test',function() {
-    $awzapi=AmazonApi::getInstance();
-    $awzapi->getProductInformation('B00JQHOKSQ');
+    //$awzapi=AmazonApi::getInstance();
+    //$awzapi->getProductInformation('B00JQHOKSQ');
 });
 
 // Users
