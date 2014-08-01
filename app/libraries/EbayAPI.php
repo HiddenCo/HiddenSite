@@ -17,6 +17,10 @@ class EbayAPI {
     public  static  function AddItem($addTitle, $addCatID, $addSPrice, $addPicture, $addDesc,$addZIP) {
 
         $user_setting=UserSettings::getUserSetting();
+
+        $country=$user_setting->lang=='com'?'US':'UK';
+        $currency=$user_setting->lang=='com'?'USD':'GBP';
+        $site_id=$user_setting->lang=='com'?0:3;
         /* Sample XML Request Block for minimum AddItem request
         see ... for sample XML block given length*/
 
@@ -37,8 +41,8 @@ class EbayAPI {
         $xmlRequest .= "<StartPrice>" . $addSPrice . "</StartPrice>";
         $xmlRequest .= "<CategoryMappingAllowed>true</CategoryMappingAllowed>";
         $xmlRequest .= "<ConditionID>1000</ConditionID>";
-        $xmlRequest .= "<Country>US</Country>";
-        $xmlRequest .= "<Currency>USD</Currency>";
+        $xmlRequest .= "<Country>".$country."</Country>";
+        $xmlRequest .= "<Currency>".$currency."</Currency>";
         $xmlRequest .= "<DispatchTimeMax>2</DispatchTimeMax>";
         $xmlRequest .= "<ListingDuration>Days_30</ListingDuration>";
         $xmlRequest .= "<ListingType>FixedPriceItem</ListingType>";
@@ -84,7 +88,7 @@ class EbayAPI {
         // define our header array for the Trading API call
         // notice different headers from shopping API and SITE_ID changes to SITEID
         $headers = array(
-            'X-EBAY-API-SITEID:'.SITEID,
+            'X-EBAY-API-SITEID:'.$site_id,
             'X-EBAY-API-CALL-NAME:AddItem',
             'X-EBAY-API-COMPATIBILITY-LEVEL:' . API_COMPATIBILITY_LEVEL,
             'X-EBAY-API-DEV-NAME:' . API_DEV_NAME,

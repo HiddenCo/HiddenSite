@@ -88,7 +88,7 @@ class AmazonApi {
         if(array_key_exists('Offers',$response['Items']['Item'])) {
 
             if(array_key_exists('Offer',$response['Items']['Item']['Offers'])) {
-
+                
                 if(array_key_exists("SalePrice",$response['Items']['Item']['Offers']['Offer']['OfferListing'])) {
                     $price=$response['Items']['Item']['Offers']['Offer']['OfferListing']['SalePrice']['FormattedPrice'];
                 } else {
