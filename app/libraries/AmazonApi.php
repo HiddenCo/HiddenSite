@@ -88,7 +88,12 @@ class AmazonApi {
         if(array_key_exists('Offers',$response['Items']['Item'])) {
 
             if(array_key_exists('Offer',$response['Items']['Item']['Offers'])) {
-                $price=$response['Items']['Item']['Offers']['Offer']['OfferListing']['Price']['FormattedPrice'];
+
+                if(array_key_exists("SalePrice",$response['Items']['Item']['Offers']['Offer']['OfferListing'])) {
+                    $price=$response['Items']['Item']['Offers']['Offer']['OfferListing']['SalePrice']['FormattedPrice'];
+                } else {
+                    $price=$response['Items']['Item']['Offers']['Offer']['OfferListing']['Price']['FormattedPrice'];
+                }
                 $price=strstr($price,$money_format);
                 $price=floatval(substr($price,strlen($money_format)));
 
