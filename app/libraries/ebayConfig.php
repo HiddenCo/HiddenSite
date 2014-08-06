@@ -14,7 +14,7 @@ DEFINE("SITEID",0);
 DEFINE("FLAG_PRODUCTION",true);
 
 // eBay Trading API version to use
-DEFINE("API_COMPATIBILITY_LEVEL",779);
+DEFINE("API_COMPATIBILITY_LEVEL",879);
 
 /* Set the Dev, App and Cert IDs
 Create these on developer.ebay.com
