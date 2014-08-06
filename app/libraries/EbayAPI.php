@@ -55,7 +55,6 @@ class EbayAPI {
         $xmlRequest .= "<Quantity>2</Quantity>";
         $xmlRequest .= "<ReturnPolicy>";
         $xmlRequest .= "<ReturnsAcceptedOption>ReturnsAccepted</ReturnsAcceptedOption>";
-        $xmlRequest .= "<RefundOption>MoneyBack</RefundOption>";
         $xmlRequest .= "<ReturnsWithinOption>Days_14</ReturnsWithinOption>";
         $xmlRequest .= "<Description>Restocking fee may apply.</Description>";
         $xmlRequest .= "<ShippingCostPaidByOption>Buyer</ShippingCostPaidByOption>";
