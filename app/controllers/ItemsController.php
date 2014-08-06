@@ -60,7 +60,6 @@ class ItemsController extends BaseController{
             return Redirect::to('/user');
         } catch(Exception $e) {
 
-            var_dump($e); exit;
             return ErrorResponse::Report($e);
         }
     }

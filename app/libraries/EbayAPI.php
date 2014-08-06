@@ -18,7 +18,7 @@ class EbayAPI {
 
         $user_setting=UserSettings::getUserSetting();
 
-        $country=$user_setting->lang=='com'?'US':'UK';
+        $country=$user_setting->lang=='com'?'US':'GB';
         $currency=$user_setting->lang=='com'?'USD':'GBP';
         $site_id=$user_setting->lang=='com'?0:3;
         /* Sample XML Request Block for minimum AddItem request
