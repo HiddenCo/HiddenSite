@@ -97,7 +97,6 @@ class EbayAPI {
             'Content-Type: text/xml;charset=utf-8'
         );
 
-        var_dump($headers); exit;
         // initialize our curl session
         $session  = curl_init(API_URL);
 
