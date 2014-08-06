@@ -40,7 +40,7 @@ class EbayAPI {
         $xmlRequest .= "</PrimaryCategory>";
         $xmlRequest .= "<StartPrice>" . $addSPrice . "</StartPrice>";
         $xmlRequest .= "<CategoryMappingAllowed>true</CategoryMappingAllowed>";
-        $xmlRequest .= "<ConditionID>1000</ConditionID>";
+
         $xmlRequest .= "<Country>".$country."</Country>";
         $xmlRequest .= "<Currency>".$currency."</Currency>";
         $xmlRequest .= "<DispatchTimeMax>2</DispatchTimeMax>";
@@ -114,7 +114,7 @@ class EbayAPI {
         $responseXML = curl_exec($session);
         $response=simplexml_load_string($responseXML);
 
-        var_dump($response); exit;
+        //var_dump($response); exit;
 
 
         // close the curl session
