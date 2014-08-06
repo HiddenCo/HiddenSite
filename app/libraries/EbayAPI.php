@@ -62,7 +62,11 @@ class EbayAPI {
         $xmlRequest .= "<ShippingDetails>";
         $xmlRequest .= "<ShippingServiceOptions>";
         $xmlRequest .= "<ShippingServicePriority>1</ShippingServicePriority>";
-        $xmlRequest .= "<ShippingService>ShippingMethodStandard</ShippingService>";
+        if($user_setting->lang=="com") {
+            $xmlRequest .= "<ShippingService>ShippingMethodStandard</ShippingService>";
+        } elseif ($user_setting->lang=="co.uk") {
+            $xmlRequest .= "<ShippingService>UK_Parcelforce24</ShippingService>";
+        }
         $xmlRequest .= "<ShippingServiceCost>0.00</ShippingServiceCost>";
         $xmlRequest .= "<ShippingServiceAdditionalCost>0.0</ShippingServiceAdditionalCost>";
         $xmlRequest .= "<ExpeditedService>false</ExpeditedService>";
@@ -109,6 +113,8 @@ class EbayAPI {
         // execute the curl request
         $responseXML = curl_exec($session);
         $response=simplexml_load_string($responseXML);
+
+        var_dump($response); exit;
 
 
         // close the curl session
