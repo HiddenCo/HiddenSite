@@ -59,6 +59,8 @@ class ItemsController extends BaseController{
             // redirect to main page
             return Redirect::to('/user');
         } catch(Exception $e) {
+
+            var_dump($e); exit;
             return ErrorResponse::Report($e);
         }
     }
