@@ -21,6 +21,9 @@ Route::get('/demo', function()
 });
 Route::get('/pricing', function()
 {
+    if(!Session::has('user_id')) {
+        return Redirect::to('/user/login');
+    }
     return View::make('pricing');
 });
 

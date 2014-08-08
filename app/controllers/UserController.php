@@ -223,6 +223,9 @@ class UserController extends BaseController{
     public function getBilling()
     {
         try {
+            if(!Session::has('user_id')) {
+                return Redirect::to('/user/login');
+            }
             $user=Users::getObject();
             if($user!=null) {
 

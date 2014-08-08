@@ -166,11 +166,13 @@ class AmazonApi {
         }
         $feature=str_replace('&','and',$feature);
 
+
         if(array_key_exists('DetailPageURL',$response['Items']['Item'])) {
             $source_url=$response['Items']['Item']['DetailPageURL'];
         } else {
             $source_url='';
         }
+        //var_dump($source_url); exit;
 
         $result=array('product_id'=>$awz_product_id,'title'=>$title,'availability'=>$availability,
                     'price'=>$price,'image'=>$image,'feature'=>$feature,

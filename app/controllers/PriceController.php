@@ -9,6 +9,9 @@
 class PriceController extends BaseController{
     public function getIndex()
     {
+        if(!Session::has('user_id')) {
+            return Redirect::to('/user/login');
+        }
         $id=Input::get('id');
         UserPricing::setUserPricing($id);
 

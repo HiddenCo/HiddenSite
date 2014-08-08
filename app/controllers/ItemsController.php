@@ -9,6 +9,9 @@
 class ItemsController extends BaseController{
     public function getIndex()
     {
+        if(!Session::has('user_id')) {
+            return Redirect::to('/user/login');
+        }
         $input=Input::all();
         if(isset($input['item_id'])) {
             $product=Products::getObject($input['item_id']);
@@ -20,6 +23,9 @@ class ItemsController extends BaseController{
     }
     public function getView()
     {
+        if(!Session::has('user_id')) {
+            return Redirect::to('/user/login');
+        }
         return View::make('items.viewitem');
     }
 
@@ -75,6 +81,7 @@ class ItemsController extends BaseController{
         $product_info['description']=$input['desc_input'];
         $product_info['feature']=$input['features_input'];
         $product_info['availability']=$input['avail_input'];
+        $product_info['source_url']=$input['source_url'];
 
         if(array_key_exists('aws_price',$input)) {
             $product_info['aws_price']=$input['aws_price'];
@@ -138,6 +145,9 @@ class ItemsController extends BaseController{
 
     public function getEdit()
     {
+        if(!Session::has('user_id')) {
+            return Redirect::to('/user/login');
+        }
         $input=Input::all();
         if(array_key_exists('item_id',$input)) {
             $item_id=$input['item_id'];

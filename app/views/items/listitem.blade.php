@@ -134,6 +134,10 @@
                 <a target="_blank" href="http://imgur.com">Imgur</a>.
                 <input class="form-control" id="images_input" name="images_input" placeholder="Enter Product Image URLs (separated by semicolons ';')" type="text" value="<?php if(isset($product))  {echo $product->image_urls;}?>">
             </div>
+            <div class="form-group">
+                <h4>Product link</h4>
+                <input class="form-control" id="source_url" name="source_url" placeholder="Enter Product Image URLs (separated by semicolons ';')" type="text" value="<?php if(isset($product))  {echo $product->image_urls;}?>">
+            </div>
             <p>
                 Note: other settings can be defined within the User Settings page.
             </p>

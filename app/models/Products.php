@@ -32,15 +32,18 @@ class Products extends Eloquent{
 
     public static function AddNewProduct($input)
     {
+
+        //var_dump($input); exit;
         if(self::isExist($input['product_id']))
         {
             return self::updateObject($input);
         }
-        $sql="insert into products (created_at,user_id,amazon_id,title,features,description,availability,image_urls,ebay_price,aws_price,ebay_category)
-                values (now(),?,?,?,?,?,?,?,?,?,?)";
+        $sql="insert into products (created_at,user_id,amazon_id,title,features,description,availability,
+              image_urls,ebay_price,aws_price,ebay_category,source_url)
+                values (now(),?,?,?,?,?,?,?,?,?,?,?)";
         DB::insert($sql,array(Session::get('user_id'),$input['product_id'],$input['title'],
             $input['feature'],$input['description'],$input['availability'],$input['image'],
-            $input['price'],$input['aws_price'],$input['category']));
+            $input['price'],$input['aws_price'],$input['category'],$input['source_url']));
     }
     public static function DeleteProduct($product_id)
     {
@@ -67,11 +70,11 @@ class Products extends Eloquent{
     public static function updateObject($input)
     {
         $sql="update products set title=?,features=?,description=?,
-                availability=?,image_urls=?,ebay_price=?,ebay_category=? where amazon_id=? and user_id=?";
+                availability=?,image_urls=?,ebay_price=?,ebay_category=?, source_url=? where amazon_id=? and user_id=?";
 
         DB::update($sql,array($input['title'],
             $input['feature'],$input['description'],$input['availability'],$input['image'],
-            $input['price'],$input['category'],$input['product_id'],Session::get('user_id')));
+            $input['price'],$input['category'],$input['source_url'],$input['product_id'],Session::get('user_id')));
 
     }
     public static function setEbayAdded($amazon_id) {
