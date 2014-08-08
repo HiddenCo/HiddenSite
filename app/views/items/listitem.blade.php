@@ -136,7 +136,7 @@
             </div>
             <div class="form-group">
                 <h4>Product link</h4>
-                <input class="form-control" id="source_url" name="source_url" placeholder="Enter Product Image URLs (separated by semicolons ';')" type="text" value="<?php if(isset($product))  {echo $product->image_urls;}?>">
+                <input class="form-control" id="source_url" name="source_url" placeholder="Enter Product URL" type="text" value="<?php if(isset($product))  {echo $product->source_url;}?>">
             </div>
             <p>
                 Note: other settings can be defined within the User Settings page.
