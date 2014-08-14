@@ -88,4 +88,14 @@ class Users extends Eloquent{
         $sql="update users set name=? where id=?";
         DB::update($sql,array($name,$user_id));
     }
+    public static function getObjectFromEmail($email)
+    {
+        $result=DB::select('select * from users where email=?',array($email));
+
+        if(count($result)>0) {
+            return $result[0];
+        } else {
+            return null;
+        }
+    }
 }

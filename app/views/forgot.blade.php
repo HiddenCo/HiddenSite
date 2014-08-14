@@ -9,7 +9,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-6">
-            <h1>Login</h1>
+            <h1>Forgot password</h1>
 
         </div>
     </div>
@@ -20,7 +20,7 @@
                     <a href="<?php echo URL::to('/')?>">Home</a>
                 </li>
                 <li>
-                    <a href="<?php echo URL::to('/')?>/user/login">Login</a>
+                    <a href="<?php echo URL::to('/')?>/user/forgot">Forgot password</a>
                 </li>
 
             </ul>
@@ -32,22 +32,15 @@
         <div class="col-md-12">
             <div class="well">
 
-                <form role="form" action="<?php echo URL::to('/')?>/user/login" method="post">
+                <form role="form" action="<?php echo URL::to('/')?>/user/forgot" method="post">
 
 
                     <div class="form-group">
                         <label for="email">Your Email</label>
-                        <input class="form-control" id="email" name="email" placeholder="" type="text">
+                        <input class="form-control" id="email" name="email" placeholder="your email" type="email" required="true">
                     </div>
-                    <div class="form-group">
-                        <label for="passinput">Password</label>
-                        <input class="form-control" id="password" name="password" placeholder="" type="password">
-                    </div>
-                    <div class="form-group">
-                        <?php if(isset($error)) {?><label style="color: red" for="passinput"><?php echo $error;?></label><?php }?>
-                    </div>
-                    <button type="submit" class="btn btn-success btn-block">Login</button>
-                    <br><a href="<?php echo URL::to('/')?>/user/forgot">Forgot password</a>
+
+                    <button type="submit" class="btn btn-success btn-block">Reset password</button>
                 </form>
 
             </div>

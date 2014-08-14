@@ -17,6 +17,6 @@ class SystemController extends BaseController{
     }
     public function getAbout()
     {
-        
+        return View::make('about');
     }
 } 

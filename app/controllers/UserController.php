@@ -239,8 +239,6 @@ class UserController extends BaseController{
         } catch(Exception $e) {
             return ErrorResponse::Report($e);
         }
-
-
     }
     public function postBilling()
     {
@@ -288,7 +286,35 @@ class UserController extends BaseController{
         } catch(Exception $e) {
             return ErrorResponse::Report($e);
         }
+    }
+    public function getForgot()
+    {
+        return View::make('forgot');
+    }
+    public function postForgot()
+    {
+        $input=Input::all();
+        $email=$input['email'];
 
+        // find user who has this email, report error if not found
+        $user=Users::getObjectFromEmail($email);
+
+        if($user==null) {
+            $data=array('email'=>$email,'error'=>'The email invalid!');
+            return View::make('forgot')->with('data',$data);
+        }
+        // send email to reset password
+
+        MailHelper::Send('emails.reset_password',array(),$user->email,"Reset Password");
 
     }
+    public function getResetPassword()
+    {
+
+    }
+    public function postResetPassword()
+    {
+
+    }
+
 } 

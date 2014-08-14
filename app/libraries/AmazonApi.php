@@ -37,9 +37,6 @@ class AmazonApi {
         $this->awz_ecs->returnType(AmazonECS::RETURN_TYPE_ARRAY);
         $response=$this->awz_ecs->responseGroup('Large,EditorialReview')->lookup($awz_product_id);
 
-
-
-
         if(!array_key_exists('Items',$response)) {
             throw new Exception('The response is wrong format');
         }
@@ -94,8 +91,14 @@ class AmazonApi {
                 } else {
                     $price=$response['Items']['Item']['Offers']['Offer']['OfferListing']['Price']['FormattedPrice'];
                 }
+
+
                 $price=strstr($price,$money_format);
-                $price=floatval(substr($price,strlen($money_format)));
+                $price=substr($price,strlen($money_format));
+
+                $price=str_replace(',','',$price);
+
+                $price=floatval($price);
 
             }else {
                 $price=0;
