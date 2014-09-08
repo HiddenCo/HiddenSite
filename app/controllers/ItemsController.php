@@ -82,6 +82,7 @@ class ItemsController extends BaseController{
         $product_info['feature']=$input['features_input'];
         $product_info['availability']=$input['avail_input'];
         $product_info['source_url']=$input['source_url'];
+        $product_info['provider']=$input['provider'];
 
         if(array_key_exists('aws_price',$input)) {
             $product_info['aws_price']=$input['aws_price'];
