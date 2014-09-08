@@ -28,8 +28,8 @@ Route::get('/pricing', function()
 });
 
 Route::get('/test',function() {
-    //$awzapi=AmazonApi::getInstance();
-    //$awzapi->getProductInformation('B00JQHOKSQ');
+    $api=new WalmartAPI();
+    $api->getProductInformation('21805448');
 });
 
 // Users

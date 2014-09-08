@@ -35,8 +35,15 @@
         <form role="form" action="<?php echo URL::to('/')?>/items/save<?php if(isset($product)) echo "?aws_price=".$product->aws_price;?>" method="post">
 
             <div class="form-group">
-                <h4>ASIN</h4>
-                <input class="form-control" id="amazon_id" name="amazon_id" placeholder="Enter Amazon ID" type="text" value="<?php if(isset($product))  {echo $product->amazon_id;}?>">
+                <h4>Select Provider</h4>
+                <select class="form-control" name="provider" id="provider">
+                    <option value="amazon" <?php if(isset($product) && $product->provider=='amazon') echo 'selected'; else echo 'selected'?>>Amazon</option>
+                    <option value="walmart" <?php if(isset($product) && $product->provider=='walmart') echo 'selected'?>>Walmart</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <h4>Product ID</h4>
+                <input class="form-control" id="amazon_id" name="amazon_id" placeholder="Enter Product ID" type="text" value="<?php if(isset($product))  {echo $product->amazon_id;}?>">
             </div>
             <div class="form-group">
                 <h4>eBay Category Number -

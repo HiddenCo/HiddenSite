@@ -39,11 +39,11 @@ class ItemsController extends BaseController{
 
             if(strlen($amazon_id)==0) {
 
-                return View::make('items.listitem')->with('error','Amazon Product Id is require');
+                return View::make('items.listitem')->with('error','Product Id is require');
             }
 
             if(isset($_POST['btn_autofill'])) {
-                $product= self::getAmazonProductInformation($amazon_id);
+                $product= self::getAmazonProductInformation($amazon_id,$input['provider']);
 
                 $product->ebay_category=$input['category_input'];
 
@@ -218,19 +218,24 @@ class ItemsController extends BaseController{
             return ErrorResponse::Report($e);
         }
     }
-    private function getAmazonProductInformation($amazon_id)
+    private function getAmazonProductInformation($amazon_id,$provider)
     {
-        $user_setting=UserSettings::getUserSetting();
-        if($user_setting->lang=='com') {
-            $money='$';
-        } elseif($user_setting->lang=='co.uk') {
-            $money='£';
-        } else {
-            $money='$';
-        }
+        if($provider=='amazon') {
+            $user_setting=UserSettings::getUserSetting();
+            if($user_setting->lang=='com') {
+                $money='$';
+            } elseif($user_setting->lang=='co.uk') {
+                $money='£';
+            } else {
+                $money='$';
+            }
 
-        $amazon_obj=AmazonApi::getInstance();
-        $product_info=$amazon_obj->getProductInformation($amazon_id,$money);
+            $amazon_obj=AmazonApi::getInstance();
+            $product_info=$amazon_obj->getProductInformation($amazon_id,$money);
+        } else {
+            $walmart_obj=new WalmartAPI();
+            $product_info=$walmart_obj->getProductInformation($amazon_id);
+        }
 
         $product=new Products();
         $product->amazon_id=$amazon_id;
