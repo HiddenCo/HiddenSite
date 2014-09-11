@@ -37,7 +37,7 @@
             <div class="form-group">
                 <h4>Select Provider</h4>
                 <select class="form-control" name="provider" id="provider">
-                    <option value="amazon" <?php if(isset($product) && $product->provider=='amazon') echo 'selected'; else echo 'selected'?>>Amazon</option>
+                    <option value="amazon" <?php if(!isset($product)) {echo 'selected';} elseif($product->provider=='amazon') {echo 'selected';}?>>Amazon</option>
                     <option value="walmart" <?php if(isset($product) && $product->provider=='walmart') echo 'selected'?>>Walmart</option>
                 </select>
             </div>

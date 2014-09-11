@@ -34,7 +34,7 @@ class WalmartAPI {
 
         $image=ImgurAPI::uploadImage($link,Config::get('aws.imgur_client_id'));
 
-        $feature='';
+        $feature=$json_data->longDescription;
 
         $description=$json_data->shortDescription;
 
